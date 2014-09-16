@@ -9,37 +9,27 @@
   <div class="right col-md-5">
     <img class="iphone" src="iphone.png">
     <table class="icon-table">
-      <tr>
-        <td><img class="icon" src="a.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="b.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="c.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="d.png"><p>Google Maps</p></td>
-      </tr>
-      <tr>
-        <td><img class="icon" src="d.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="c.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="b.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="a.png"><p>Google Maps</p></td>
-      </tr>
-      <tr>
-        <td><img class="icon" src="b.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="c.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="a.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="d.png"><p>Google Maps</p></td>
-      </tr>
-      <tr>
-        <td><img class="icon" src="d.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="a.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="b.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="c.png"><p>Google Maps</p></td>
-      </tr>
-      <tr>
-        <td><img class="icon" src="b.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="a.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="c.png"><p>Google Maps</p></td>
-        <td><img class="icon" src="d.png"><p>Google Maps</p></td>
-      </tr>
+      {{#with table}}
+        {{#each rows}}
+          <tr>
+            {{#each letters}}
+              <td><img class="icon" src="{{this}}.png"><p>Google Maps</p></td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      {{/with}}
     </table>
+
   </div>
   <div class="empty col-md-2"></div>
+</template>
+
+<template name="icon-table">
+
+</template>
+
+<template name="tr">
+  {{#each letters}}
+    <td><img class="icon" src="{{letter}}.png"><p>Google Maps</p></td>
+  {{/each}}
 </template>
