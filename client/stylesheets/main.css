@@ -1,0 +1,73 @@
+body {
+  background-image: url(/app_background.jpg);
+}
+
+textarea {
+  resize: none;
+}
+
+td {
+  width: 5.95em;
+  height: 6.65em;
+  text-align: center;
+}
+
+.navbar {
+  margin-bottom: 0em;
+}
+
+.navbar-brand {
+  font-size: 3em;
+}
+
+.writing-container {
+  margin-top: 2em;
+  padding: 1em 0em 3em 0em;
+  width: 26em;
+  border: 1px solid gray;
+  border-radius: 3em;
+  background-color: rgba(255,255,255,.2);
+}
+
+.heading {
+  text-align: center;
+  color: white;
+}
+
+.writing-box {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
+  background-color: rgba(255,255,255,1);
+  color: black;
+  font-size: 2.5em;
+}
+
+.right {
+}
+
+.iphone {
+  position: absolute;
+  height: 50em;
+}
+
+.icon-table {
+  position: absolute;
+  background-color: transparent;
+  top: 9em;
+  left: 17em;
+  text-align: center;
+}
+
+.icon {
+  width: 4.6em;
+  height: 4.6em;
+}
+
+.icon-table > tr > td > p {
+  margin: 0em;
+  font-size: .75em;
+  font-family: 'Open Sans', sans-serif;
+  color: rgba(220,220,220,1);
+}
