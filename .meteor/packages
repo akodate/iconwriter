@@ -6,3 +6,8 @@
 meteor-platform
 autopublish
 insecure
+mizzao:bootstrap-3
+datariot:ganalytics
+iron:router
+coffeescript
+
