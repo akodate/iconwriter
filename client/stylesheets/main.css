@@ -7,7 +7,7 @@ textarea {
 }
 
 td {
-  width: 4.55em;
+  width: 4.68em;
   height: 5.25em;
   text-align: center;
 }
@@ -56,18 +56,19 @@ td {
   position: absolute;
   background-color: transparent;
   top: 9.2em;
-  left: 17em;
+  left: 16.6em;
   text-align: center;
 }
 
 .icon {
-  width: 3.6em;
-  height: 3.6em;
+  width: 3.7em;
+  height: 3.7em;
 }
 
 .icon-table > tr > td > p {
-  margin-top: .4em;
-  font-size: .65em;
+  margin-top: .8em;
+  font-size: .7em;
+  line-height: .65em;
   font-family: 'Open Sans', sans-serif;
   color: rgba(220,220,220,1);
 }
