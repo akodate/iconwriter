@@ -35,7 +35,7 @@ Template.home.helpers
 
 @generateTable = (text) ->
   rows = []
-  while text.length > 0
+  while text.length > 0 && rows.length < 5
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
@@ -44,6 +44,4 @@ Template.home.helpers
         text = text.slice(1)
   console.log rows
   Table.update({}, {rows})
-
-
 
