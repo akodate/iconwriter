@@ -1,3 +1,5 @@
+LEGALCHARS = new RegExp(/[a-z0-9.\-?!]/)
+
 @Table = new Meteor.Collection(null)
 
 @table = {}
@@ -20,7 +22,7 @@ Template.home.events
       event.preventDefault()
       event.stopPropagation()
       console.log "Submitted."
-      text = $('.writing-box')[0].value
+      text = $('.writing-box')[0].value.toLowerCase()
       console.log text
       generateTable(text)
       false
@@ -48,6 +50,11 @@ Template.home.helpers
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
+      console.log text
+      console.log "Text[0] is: " + text[0]
+      while text[0] && !text[0].match(LEGALCHARS)
+        console.log 'illegal char'
+        text = text.slice(1)
       if text.length > 0
         if result = isSpecialCase(text)
           console.log 'special'
@@ -62,7 +69,21 @@ isSpecialCase = (text) ->
   if test(text, 'in') then 'in'
   else if test(text, ' ') then '_'
   else if test(text, '?') then '^'
-  else if test(text, '...') then '---'
+  else if test(text, '.') then '-'
+  else if test(text, '!') then '!'
+  else if test(text, 'dragon') then 'dragon'
+  else if test(text, 'epi') then 'epi'
+  else if test(text, 'netflix') then 'netflix'
+  else if test(text, 'paypal') then 'paypal'
+  else if test(text, 'snapguide') then 'snapguide'
+  else if test(text, 'ted') then 'ted'
+  else if test(text, 'vision') then 'vision'
+  else if test(text, 'oo') then 'oo'
+  else if test(text, 'ok') then 'ok'
+  else if test(text, 'love') then 'love'
+  else if test(text, 'dd') then "dd"
+  else if test(text, 'whatsapp') then 'whatsapp'
+  else if test(text, 'tweet') then 'tweet'
   else false
 
 test = (text, query) ->
@@ -107,7 +128,7 @@ Handlebars.registerHelper('title', (appName) ->
     when 'z' then 'ZombieHighway'
     when '0' then 'White Zero'
     when '1' then '123 Ninja'
-    when '2' then 'Amateur Surgeon'
+    when '2' then 'AmateurSurgeon'
     when '3' then 'Threes'
     when '4' then '4shared'
     when '5' then 'Five-O Deluxe'
@@ -117,8 +138,22 @@ Handlebars.registerHelper('title', (appName) ->
     when '9' then '9GAG'
     when '_' then 'Yo'
     when '^' then 'Mystery Box'
-    when '---' then 'Onavo Extend'
+    when '-' then 'Onavo Extend'
+    when '!' then '!'
     when 'in' then 'LinkedIn'
-    else 'Google Maps'
+    when 'dragon' then 'Dragon'
+    when 'epi' then 'Epicurious'
+    when 'netflix' then 'Netflix'
+    when 'paypal' then 'Paypal'
+    when 'snapguide' then 'Snapguide'
+    when 'ted' then 'TED'
+    when 'vision' then 'Vision Test'
+    when 'oo' then 'OO Phone'
+    when 'ok' then 'Keep it Local'
+    when 'love' then 'We Heart Pics'
+    when 'dd' then "Dunkin' Donuts"
+    when 'whatsapp' then 'WhatsApp'
+    when 'tweet' then 'Twitter'
+    else 'MissingNo'
 )
 
