@@ -10,9 +10,13 @@ row2['letters'] = ['d', 'c', 'b', 'a']
 
 Table.insert(@table)
 
+
+
+
+
 Template.home.events
   "keydown .writing-box": (event, ui) ->
-    if (event.keyCode == 13 && !event.shiftKey)
+    if (event.keyCode == 13)
       event.preventDefault()
       event.stopPropagation()
       console.log "Submitted."
@@ -26,6 +30,10 @@ Template.home.events
       event.preventDefault()
       event.stopPropagation()
       false
+
+
+
+
 
 Template.home.helpers
 
@@ -66,3 +74,51 @@ specialCase = (text, result, rows) ->
   console.log 'special'
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
+
+
+
+Handlebars.registerHelper('title', (appName) ->
+  switch appName
+    when 'a' then 'Adobe Reader'
+    when 'b' then 'Booking.com'
+    when 'c' then 'Concur'
+    when 'd' then 'Documents 5'
+    when 'e' then 'Elevate'
+    when 'f' then 'Facebook'
+    when 'g' then 'Google Search'
+    when 'h' then 'Hotels.com'
+    when 'i' then 'Podcasts'
+    when 'j' then 'Jackthreads'
+    when 'k' then 'KAYAK'
+    when 'l' then 'Letris 4'
+    when 'm' then 'Monster.com'
+    when 'n' then 'Nook'
+    when 'o' then 'Opera'
+    when 'p' then 'Pinterest'
+    when 'q' then 'Quora'
+    when 'r' then 'Runes 2'
+    when 's' then 'Skype'
+    when 't' then 'Tumblr'
+    when 'u' then 'Uber'
+    when 'v' then 'Vine'
+    when 'w' then 'Words'
+    when 'x' then 'Xtreme Wheels'
+    when 'y' then 'Yocto Alarm'
+    when 'z' then 'ZombieHighway'
+    when '0' then 'White Zero'
+    when '1' then '123 Ninja'
+    when '2' then 'Amateur Surgeon'
+    when '3' then 'Threes'
+    when '4' then '4shared'
+    when '5' then 'Five-O Deluxe'
+    when '6' then '6 Numbers'
+    when '7' then 'Sevens'
+    when '8' then '8mm Camera'
+    when '9' then '9GAG'
+    when '_' then 'Yo'
+    when '^' then 'Mystery Box'
+    when '---' then 'Onavo Extend'
+    when 'in' then 'LinkedIn'
+    else 'Google Maps'
+)
+

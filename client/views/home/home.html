@@ -13,7 +13,7 @@
         {{#each rows}}
           <tr>
             {{#each letters}}
-              <td><img class="icon" src="{{this}}.png"><p>Google Maps</p></td>
+              <td><img class="icon" src="{{this}}.png"><p>{{title this}}</p></td>
             {{/each}}
           </tr>
         {{/each}}
@@ -22,14 +22,4 @@
 
   </div>
   <div class="empty col-md-2"></div>
-</template>
-
-<template name="icon-table">
-
-</template>
-
-<template name="tr">
-  {{#each letters}}
-    <td><img class="icon" src="{{letter}}.png"><p>Google Maps</p></td>
-  {{/each}}
 </template>
