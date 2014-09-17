@@ -53,6 +53,8 @@ Template.home.helpers
 isSpecialCase = (text) ->
   if test(text, 'in') then 'in'
   else if test(text, ' ') then '_'
+  else if test(text, '?') then '^'
+  else if test(text, '...') then '---'
   else false
 
 test = (text, query) ->
