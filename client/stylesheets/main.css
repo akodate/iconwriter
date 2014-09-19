@@ -25,12 +25,14 @@ td {
 }
 
 .writing-container {
+  margin: auto;
   margin-top: 2em;
-  padding: 1em 0em 3em 0em;
+  padding: 1em 2em 1em 2em;
   width: 26em;
   border: 1px solid gray;
   border-radius: 3em;
   background-color: rgba(0,0,0,.4);
+  text-align: center;
 }
 
 .heading {
@@ -48,7 +50,14 @@ td {
   font-size: 2.5em;
 }
 
-.right {
+.options {
+  margin: 1em 1.5em;
+  background-color: rgba(50,50,50,1);
+  color: rgba(200,200,200,1);
+}
+
+.btn.options:hover {
+  color: white;
 }
 
 .iphone {
@@ -56,11 +65,13 @@ td {
   height: 50em;
 }
 
-.icon-table {
+.icon-table-container {
+  overflow: hidden;
   position: absolute;
   background-color: transparent;
   top: 9.2em;
   left: 16.6em;
+  max-height: 26.42em;
   text-align: center;
 }
 
@@ -78,8 +89,11 @@ td {
 }
 
 .writing-area {
-  min-height: 20em;
-  min-width: 65.3em;
+  position: absolute;
+  left: 10em;
+  overflow: scroll;
+  height: 50em;
+  min-width: 39.2em;
   margin-top: 1em;
   padding: 1em;
   background-color: rgba(0,0,0,.6);

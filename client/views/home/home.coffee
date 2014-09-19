@@ -1,6 +1,7 @@
 LEGALCHARS = new RegExp(/[a-z0-9\s\-.?!]/)
 
 @Table = new Meteor.Collection(null)
+@IconWriter = new Meteor.Collection(null)
 
 @table = {}
 @table['rows'] = []
@@ -10,8 +11,12 @@ row2 = {}
 row2['letters'] = ['d', 'c', 'b', 'a']
 @table['rows'].push row1, row2
 
-Table.insert(@table)
+IconWriter.insert({iPhoneDisplay: true})
 
+Template.home.rendered = () ->
+
+  Table.insert(table)
+  $('.writing-area').hide()
 
 
 
@@ -23,7 +28,6 @@ Template.home.events
       event.stopPropagation()
       console.log "Submitted."
       text = $('.writing-box')[0].value.toLowerCase()
-      console.log text
       generateTable(text)
       false
     else if event.keyCode != 13
@@ -33,7 +37,15 @@ Template.home.events
       event.stopPropagation()
       false
 
+  "click .essay": (event, ui) ->
+    iPhoneDisplay = IconWriterFind('iPhoneDisplay')
+    IconWriterUpdate({iPhoneDisplay: !iPhoneDisplay})
+    unless IconWriterFind('iPhoneDisplay')
+      text = $('.writing-box')[0].value.toLowerCase()
+      generateTable(text)
 
+  "focus .btn": (event, ui) ->
+    $('.btn').blur()
 
 
 
@@ -43,10 +55,30 @@ Template.home.helpers
     console.log Table.findOne({})
     Table.findOne({})
 
+  iPhoneAnimate: ->
+    if IconWriterFind('iPhoneDisplay') && $('.iphone-container').hasClass('fadeOut')
+      'fadeIn'
+    else if IconWriterFind('iPhoneDisplay') && !$('.iphone-container').hasClass('fadeOut')
+      ''
+    else
+      'fadeOut'
+
+  essayAnimate: ->
+    if !IconWriterFind('iPhoneDisplay')
+      $('.writing-area').show()
+      'fadeIn'
+    else
+      'fadeOut'
+
+
 @generateTable = (text) ->
   rows = []
   text = text.split('')
-  while text.length > 0 && rows.length < 50
+  if IconWriterFind('iPhoneDisplay')
+    maxRows = 5
+  else
+    maxRows = 75
+  while text.length > 0 && rows.length < maxRows
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
@@ -96,6 +128,12 @@ specialCase = (text, result, rows) ->
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
+
+@IconWriterUpdate = (objects) ->
+  IconWriter.update({}, {$set: objects})
+
+@IconWriterFind = (field) ->
+  IconWriter.findOne()[field]
 
 
 Handlebars.registerHelper('title', (appName) ->
