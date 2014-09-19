@@ -8,6 +8,11 @@ Router.map( ->
     onAfterAction: ->
       GAnalytics.pageview()
   })
+  @route('about', {
+    path: '/about',
+    onAfterAction: ->
+      GAnalytics.pageview()
+  })
 )
 
 Router.onBeforeAction('loading')
