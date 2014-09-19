@@ -10,3 +10,5 @@ mizzao:bootstrap-3
 datariot:ganalytics
 iron:router
 coffeescript
+mrt:iron-router-progress
+

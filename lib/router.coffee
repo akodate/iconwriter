@@ -16,4 +16,3 @@ Router.map( ->
 )
 
 Router.onBeforeAction('loading')
-
