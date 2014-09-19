@@ -20,7 +20,7 @@ td {
   font-size: 3em;
 }
 
-.about {
+.about-link {
   font-size: 1.5em;
 }
 
@@ -30,7 +30,7 @@ td {
   width: 26em;
   border: 1px solid gray;
   border-radius: 3em;
-  background-color: rgba(255,255,255,.2);
+  background-color: rgba(0,0,0,.4);
 }
 
 .heading {
