@@ -25,7 +25,7 @@ td {
 }
 
 .writing-container {
-  margin: auto;
+  margin-left: 12em;
   margin-top: 2em;
   padding: 1em 2em 1em 2em;
   width: 26em;
@@ -93,7 +93,7 @@ td {
   left: 10em;
   overflow: scroll;
   height: 50em;
-  min-width: 39.2em;
+  min-width: 32em;
   margin-top: 1em;
   padding: 1em;
   background-color: rgba(0,0,0,.6);
