@@ -72,3 +72,18 @@ td {
   font-family: 'Open Sans', sans-serif;
   color: rgba(220,220,220,1);
 }
+
+.writing-area {
+  min-height: 20em;
+  min-width: 65.3em;
+  margin-top: 1em;
+  padding: 1em;
+  background-color: rgba(0,0,0,.6);
+  border: 1px solid gray;
+  border-radius: 1em;
+}
+
+.icon-table2 {
+  background-color: transparent;
+  text-align: left;
+}

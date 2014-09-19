@@ -1,4 +1,4 @@
-LEGALCHARS = new RegExp(/[a-z0-9.\-?!]/)
+LEGALCHARS = new RegExp(/[a-z0-9\s\-.?!]/)
 
 @Table = new Meteor.Collection(null)
 
@@ -46,7 +46,7 @@ Template.home.helpers
 @generateTable = (text) ->
   rows = []
   text = text.split('')
-  while text.length > 0 && rows.length < 5
+  while text.length > 0 && rows.length < 50
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
@@ -80,7 +80,7 @@ isSpecialCase = (text) ->
   else if test(text, 'vision') then 'vision'
   else if test(text, 'oo') then 'oo'
   else if test(text, 'ok') then 'ok'
-  else if test(text, 'love') then 'love'
+  else if test(text, 'heart') then 'heart'
   else if test(text, 'dd') then "dd"
   else if test(text, 'whatsapp') then 'whatsapp'
   else if test(text, 'tweet') then 'tweet'
@@ -150,7 +150,7 @@ Handlebars.registerHelper('title', (appName) ->
     when 'vision' then 'Vision Test'
     when 'oo' then 'OO Phone'
     when 'ok' then 'Keep it Local'
-    when 'love' then 'We Heart Pics'
+    when 'heart' then 'We Heart Pics'
     when 'dd' then "Dunkin' Donuts"
     when 'whatsapp' then 'WhatsApp'
     when 'tweet' then 'Twitter'

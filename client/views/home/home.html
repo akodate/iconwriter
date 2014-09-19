@@ -5,8 +5,19 @@
       <h1 class="heading">IconWriter</h1>
       <textarea class="writing-box" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus="{{autofocus}}" placeholder="Type text here..."></textarea>
     </div>
+    <div class="writing-area animated bounceInRight" style="display: none">
+      <table class="icon-table2">
+        {{#with table}}
+          {{#each rows}}
+            {{#each letters}}
+              <img class="icon" src="{{this}}.png">
+            {{/each}}
+          {{/each}}
+        {{/with}}
+      </table>
+    </div>
   </div>
-  <div class="right col-md-5">
+  <div class="right col-md-5 animated" style="display: on">
     <img class="iphone" src="iphone.png">
     <table class="icon-table">
       {{#with table}}
