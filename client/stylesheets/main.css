@@ -51,13 +51,20 @@ td {
 }
 
 .options {
-  margin: 1em 1.5em;
+  margin: 1em 1em;
   background-color: rgba(50,50,50,1);
   color: rgba(200,200,200,1);
 }
 
 .btn.options:hover {
   color: white;
+}
+
+.legend-text {
+  margin: 0em .5em;
+  text-align: left;
+  font-size: 1.2em;
+  color: rgba(160,160,160,1);
 }
 
 .iphone {

@@ -44,6 +44,15 @@ Template.home.events
       text = $('.writing-box')[0].value.toLowerCase()
       generateTable(text)
 
+  "click .legend": (event, ui) ->
+    $('.legend-container').show()
+    if $('.legend-container').hasClass('fadeIn')
+      $('.legend-container').removeClass('fadeIn')
+      $('.legend-container').addClass('fadeOut')
+    else
+      $('.legend-container').removeClass('fadeOut')
+      $('.legend-container').addClass('fadeIn')
+
   "focus .btn": (event, ui) ->
     $('.btn').blur()
 
