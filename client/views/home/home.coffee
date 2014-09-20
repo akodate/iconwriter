@@ -1,4 +1,4 @@
-LEGALCHARS = new RegExp(/[a-z0-9\s\-.?!]/)
+LEGALCHARS = new RegExp(/[a-z0-9\s\_.?!+$]/)
 
 @Table = new Meteor.Collection(null)
 @IconWriter = new Meteor.Collection(null)
@@ -28,7 +28,7 @@ Template.home.events
         backgroundColor: 'white'
       $('.submit').animate
         backgroundColor: 'black',
-        1000
+        1500
       event.preventDefault()
       event.stopPropagation()
       text = $('.writing-box')[0].value.toLowerCase()
@@ -59,6 +59,10 @@ Template.home.events
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
+
+  "click .legend-text": (event, ui) ->
+    text = event.target.outerText
+    $('.writing-box').val($('.writing-box').val() + text)
 
 
 
@@ -111,24 +115,73 @@ Template.home.helpers
   Table.update({}, {rows})
 
 isSpecialCase = (text) ->
-  if test(text, 'in') then 'in'
+  if test(text, 'whatsapp') then 'whatsapp'
+  else if test(text, 'tweet') then 'tweet'
+  else if test(text, '2048') then '2048'
+  else if test(text, 'angrybirds') then 'angrybirds'
+  else if test(text, 'candycrush') then 'candycrush'
+  else if test(text, 'clashofclans') then 'clashofclans'
+  else if test(text, 'fruitninja') then 'fruitninja'
+  else if test(text, 'instagram') then 'instagram'
+  else if test(text, 'line') then 'line'
+  else if test(text, 'messenger') then 'messenger'
+  else if test(text, 'minecraft') then 'minecraft'
+  else if test(text, 'shazam') then 'shazam'
+  else if test(text, 'snapchat') then 'snapchat'
+  else if test(text, 'templerun') then 'templerun'
+  else if test(text, 'youtube') then 'youtube'
+  else if test(text, 'netflix') then 'netflix'
+  else if test(text, 'dragon') then 'dragon'
+  else if test(text, 'vision') then 'vision'
+  else if test(text, 'heart') then 'heart'
+  else if test(text, 'airplane') then 'airplane'
+  else if test(text, 'book') then 'book'
+  else if test(text, 'sky') then 'sky'
+  else if test(text, 'holybible') then 'holybible'
+  else if test(text, 'creeper') then 'creeper'
+  else if test(text, 'check') then 'check'
+  else if test(text, '42') then '42'
   else if test(text, ' ') then '_'
   else if test(text, '?') then '^'
   else if test(text, '.') then '-'
   else if test(text, '!') then '!'
-  else if test(text, 'dragon') then 'dragon'
+  else if test(text, '+') then '+'
+  else if test(text, '$') then '$'
+  else if test(text, 'in') then 'in'
   else if test(text, 'epi') then 'epi'
-  else if test(text, 'netflix') then 'netflix'
-  else if test(text, 'paypal') then 'paypal'
-  else if test(text, 'snapguide') then 'snapguide'
   else if test(text, 'ted') then 'ted'
-  else if test(text, 'vision') then 'vision'
   else if test(text, 'oo') then 'oo'
   else if test(text, 'ok') then 'ok'
-  else if test(text, 'heart') then 'heart'
   else if test(text, 'dd') then "dd"
-  else if test(text, 'whatsapp') then 'whatsapp'
-  else if test(text, 'tweet') then 'tweet'
+  else if test(text, 'yelp') then 'yelp'
+  else if test(text, '42') then '42'
+  else if test(text, 'smile') then 'smile'
+  else if test(text, 'joyous') then 'joyous'
+  else if test(text, 'cc') then 'cc'
+  else if test(text, 'globe') then 'globe'
+  else if test(text, 'ps') then 'ps'
+  else if test(text, 'scarykids') then 'scarykids'
+  else if test(text, 'sunny') then 'sunny'
+  else if test(text, 'a_2') then 'a_2'
+  else if test(text, 'b_2') then 'b_2'
+  else if test(text, 'b_3') then 'b_3'
+  else if test(text, 'c_2') then 'c_2'
+  else if test(text, 'd_2') then 'd_2'
+  else if test(text, 'e_2') then 'e_2'
+  else if test(text, 'f_2') then 'f_2'
+  else if test(text, 'g_2') then 'g_2'
+  else if test(text, 'g_3') then 'g_3'
+  else if test(text, 'j_2') then 'j_2'
+  else if test(text, 'm_2') then 'm_2'
+  else if test(text, 'n_2') then 'n_2'
+  else if test(text, 'n_3') then 'n_3'
+  else if test(text, 'o_2') then 'o_2'
+  else if test(text, 'p_2') then 'p_2'
+  else if test(text, 'p_3') then 'p_3'
+  else if test(text, 'q_2') then 'q_2'
+  else if test(text, 's_2') then 's_2'
+  else if test(text, 'v_2') then 'v_2'
+  else if test(text, 'x_2') then 'x_2'
   else false
 
 test = (text, query) ->
@@ -191,12 +244,12 @@ Handlebars.registerHelper('title', (appName) ->
     when '^' then 'Mystery Box'
     when '-' then 'Onavo Extend'
     when '!' then '!'
+    when '+' then '+'
+    when '$' then 'Cash'
     when 'in' then 'LinkedIn'
     when 'dragon' then 'Dragon'
     when 'epi' then 'Epicurious'
     when 'netflix' then 'Netflix'
-    when 'paypal' then 'Paypal'
-    when 'snapguide' then 'Snapguide'
     when 'ted' then 'TED'
     when 'vision' then 'Vision Test'
     when 'oo' then 'OO Phone'
@@ -205,6 +258,55 @@ Handlebars.registerHelper('title', (appName) ->
     when 'dd' then "Dunkin' Donuts"
     when 'whatsapp' then 'WhatsApp'
     when 'tweet' then 'Twitter'
+    when '2048' then '2048'
+    when 'angrybirds' then 'Angry Birds'
+    when 'candycrush' then 'Candy Crush'
+    when 'clashofclans' then 'Clash of Clans'
+    when 'fruitninja' then 'Fruit Ninja'
+    when 'instagram' then 'Instagram'
+    when 'line' then 'LINE'
+    when 'messenger' then 'Messenger'
+    when 'minecraft' then 'Minecraft'
+    when 'shazam' then 'Shazam'
+    when 'snapchat' then 'Snapchat'
+    when 'templerun' then 'Temple Run'
+    when 'youtube' then 'YouTube'
+    when 'airplane' then 'Plane Finder'
+    when 'check' then 'Clear'
+    when 'yelp' then 'Yelp'
+    when '42' then 'PCalc'
+    when 'smile' then 'Waze'
+    when 'holybible' then 'Bible'
+    when 'creeper' then 'Plants/Zombies'
+    when 'joyous' then 'Toca Salon 2'
+    when 'cc' then 'CamCard'
+    when 'book' then 'iBooks'
+    when 'sky' then 'Sky+'
+    when 'ps' then 'Photoshop'
+    when 'sunny' then 'Weather AUS'
+    when 'globe' then 'Living Earth'
+    when 'scarykids' then 'Scary Tale'
+    when 'guitar' then 'GarageBand'
+    when 'a_2' then 'Airbnb'
+    when 'b_2' then 'Beats Music'
+    when 'b_3' then 'Byword'
+    when 'c_2' then 'CityHour'
+    when 'd_2' then 'ZEDGE'
+    when 'e_2' then 'Evermeeting'
+    when 'f_2' then 'Font Candy'
+    when 'g_2' then 'Guitar Tabs'
+    when 'g_3' then 'Google Maps'
+    when 'j_2' then 'Jukely'
+    when 'm_2' then 'Memoir'
+    when 'n_2' then 'OneNote'
+    when 'n_3' then 'Wallpapr'
+    when 'o_2' then 'Chase Mobile'
+    when 'p_2' then 'Paypal'
+    when 'p_3' then 'Pandora'
+    when 'q_2' then 'Quizlet'
+    when 's_2' then 'Snapguide'
+    when 'v_2' then 'Vango'
+    when 'x_2' then 'musiXmatch'
     else 'MissingNo'
 )
 
