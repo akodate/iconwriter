@@ -22,11 +22,10 @@ Template.home.rendered = () ->
 
 
 Template.home.events
-  "keydown .writing-box": (event, ui) ->
-    if (event.keyCode == 13)
+  "keydown .writing-box, click .submit": (event, ui) ->
+    if event.keyCode == 13 || event.keyCode == undefined
       event.preventDefault()
       event.stopPropagation()
-      console.log "Submitted."
       text = $('.writing-box')[0].value.toLowerCase()
       generateTable(text)
       false

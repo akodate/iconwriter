@@ -60,6 +60,20 @@ td {
   color: white;
 }
 
+.submit {
+  margin: .5em 0em 0em;
+  padding: .2em 3em;
+  font-size: 2em;
+  border: 1px solid white;
+  border-radius: .5em;
+  background-color: rgba(0,0,0,1);
+  color: rgba(200,200,200,1);
+}
+
+.legend, .essay {
+  background-color: transparent;
+}
+
 .legend-text {
   margin: 0em .5em;
   text-align: left;
