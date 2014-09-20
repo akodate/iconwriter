@@ -42,6 +42,7 @@ td {
 
 .writing-box {
   display: block;
+  margin-top: .8em;
   margin-left: auto;
   margin-right: auto;
   width: 8em;
@@ -114,7 +115,7 @@ td {
   left: 10em;
   overflow: scroll;
   height: 50em;
-  min-width: 32em;
+  width: 31.8em;
   margin-top: 1em;
   padding: 1em;
   background-color: rgba(0,0,0,.6);

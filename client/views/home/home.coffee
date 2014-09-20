@@ -24,6 +24,11 @@ Template.home.rendered = () ->
 Template.home.events
   "keydown .writing-box, click .submit": (event, ui) ->
     if event.keyCode == 13 || event.keyCode == undefined
+      $('.submit').css
+        backgroundColor: 'white'
+      $('.submit').animate
+        backgroundColor: 'black',
+        1000
       event.preventDefault()
       event.stopPropagation()
       text = $('.writing-box')[0].value.toLowerCase()
