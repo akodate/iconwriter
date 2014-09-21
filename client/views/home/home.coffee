@@ -1,4 +1,7 @@
 LEGALCHARS = new RegExp(/[a-z0-9\s\_.?!+$]/)
+THREETYPES = 'abglmnoprst'
+TWOTYPES = 'cdefhjqvwxy'
+ONETYPE = 'ikuz'
 
 @Table = new Meteor.Collection(null)
 @IconWriter = new Meteor.Collection(null)
@@ -69,7 +72,7 @@ Template.home.events
 Template.home.helpers
 
   table: ->
-    console.log Table.findOne({})
+    # console.log Table.findOne({})
     Table.findOne({})
 
   iPhoneAnimate: ->
@@ -99,20 +102,39 @@ Template.home.helpers
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
-      console.log text
-      console.log "Text[0] is: " + text[0]
+      # console.log text
+      # console.log "Text[0] is: " + text[0]
       while text[0] && !text[0].match(LEGALCHARS)
-        console.log 'illegal char'
+        # console.log 'illegal char'
         text = text.slice(1)
       if text.length > 0
         if result = isSpecialCase(text)
-          console.log 'special'
+          # console.log 'special'
           text = specialCase(text, result, rows)
         else
-          console.log 'not special'
+          # console.log 'not special'
           rows[rows.length - 1]['letters'].push(text[0])
           text = text.slice(1)
+  diversify(rows)
   Table.update({}, {rows})
+
+@diversify = (rows) ->
+  parse(rows, THREETYPES, 3)
+  parse(rows, TWOTYPES, 2)
+
+@parse = (rows, letterList, typeCount) ->
+  for l in letterList
+    counter = 0
+    for row, index in rows
+      if row.letters
+        for icon, index2 in row.letters
+          if l == icon
+            if counter % typeCount != 0
+              newIcon = icon + '_' + (counter % typeCount + 1)
+              rows[index].letters[index2] = newIcon
+            counter += 1
+
+
 
 isSpecialCase = (text) ->
   if test(text, 'whatsapp') then 'whatsapp'
@@ -182,7 +204,7 @@ isSpecialCase = (text) ->
   else if test(text, 'tea') then 'tea'
   else if test(text, 'xs') then 'xs'
   else if test(text, 'yolo') then 'yolo'
-  else if test(text, 'yum') then 'yum'  # Words and letters
+  else if test(text, 'yum') then 'yum'  # Words and letter combos
   else if test(text, 'a_2') then 'a_2'
   else if test(text, 'a_3') then 'a_3'
   else if test(text, 'b_2') then 'b_2'
@@ -216,10 +238,6 @@ isSpecialCase = (text) ->
   else if test(text, 'w_2') then 'w_2'
   else if test(text, 'x_2') then 'x_2'
   else if test(text, 'y_2') then 'y_2'
-
-
-
-
   else false
 
 test = (text, query) ->
@@ -228,7 +246,7 @@ test = (text, query) ->
   else false
 
 specialCase = (text, result, rows) ->
-  console.log 'special'
+  # console.log 'special'
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
@@ -239,8 +257,7 @@ specialCase = (text, result, rows) ->
 @IconWriterFind = (field) ->
   IconWriter.findOne()[field]
 
-
-Handlebars.registerHelper('title', (appName) ->
+Handlebars.registerHelper 'title', (appName) ->
   switch appName
     when 'a' then 'Adobe Reader'
     when 'b' then 'Booking.com'
@@ -380,5 +397,4 @@ Handlebars.registerHelper('title', (appName) ->
     when 'x_2' then 'musiXmatch'
     when 'y_2' then 'DailyCost'
     else 'MissingNo'
-)
 
