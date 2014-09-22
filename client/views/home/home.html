@@ -1,8 +1,11 @@
 <template name="home">
-  <div class="left col-md-5">
+  <div class="empty col-lg-2 col-md-1 col-sm-12 col-xs-12"></div>
+  <div class="left col-lg-5 col-md-4 col-sm-5 col-xs-12">
     <div class="writing-container">
       <textarea class="writing-box" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus="{{autofocus}}" placeholder="Type text here..."></textarea>
-      <button type="button" class="btn options btn-lg submit">Iconify!</button>
+      <div class ="col-xs-12">
+        <button type="button" class="btn options btn-lg submit">Iconify!</button>
+      </div>
       <button type="button" class="btn options legend">Special Words</button>
       <button type="button" class="btn options essay">Switch Canvas</button>
     </div>
@@ -84,7 +87,8 @@
       </div>
     </div>
   </div>
-  <div class="right col-md-5">
+  <div class="empty col-sm-2 col-md-2 hidden-lg"></div>
+  <div class="right col-lg-5 col-md-5 col-sm-4 col-xs-12">
     <div class="iphone-container animated {{iPhoneAnimate}}">
       <img class="iphone" src="iphone.png">
       <div class="icon-table-container">
@@ -113,5 +117,5 @@
       </table>
     </div>
   </div>
-  <div class="empty col-md-2"></div>
+  <div class="empty col-md-2 lg-hidden"></div>
 </template>

@@ -1,5 +1,19 @@
+body, html {
+  margin: 0;
+  height: 100%;
+}
+
 body {
+  max-width: 1500px;
+  margin: auto;
+  background-color: black
+}
+
+#main {
+  height: 100%;
+  overflow-y: auto;
   background-image: url(/app_background.jpg);
+  background-size: cover;
 }
 
 textarea {
@@ -7,8 +21,8 @@ textarea {
 }
 
 td {
-  width: 4.68em;
-  height: 5.25em;
+  width: 62px;
+  height: 70px;
   text-align: center;
 }
 
@@ -24,12 +38,19 @@ td {
   font-size: 1.5em;
 }
 
+.empty {
+}
+
+.left {
+  text-align: center;
+}
+
 .writing-container {
   overflow: hidden;
-  margin-left: 12em;
+  margin: auto;
   margin-top: 2em;
-  padding: 1em 2em 1em 2em;
-  width: 26em;
+  padding: 1em 2em;
+  width: 450px;
   border: 1px solid gray;
   border-radius: 3em;
   background-color: rgba(0,0,0,.4);
@@ -100,28 +121,36 @@ td {
   color: rgba(180,180,180,1);
 }
 
+.right {
+  text-align: left;
+}
+
+.iphone-container {
+  height: 50px;
+}
+
 .iphone {
   position: absolute;
-  height: 50em;
+  height: 640px;
 }
 
 .icon-table-container {
   overflow: hidden;
   position: absolute;
   background-color: transparent;
-  top: 9.2em;
-  left: 16.6em;
+  top: 117px;
+  left: 42px;
   max-height: 26.42em;
   text-align: center;
 }
 
 .icon {
-  width: 3.7em;
-  height: 3.7em;
+  width: 3.4em;
+  height: 3.4em;
 }
 
 .icon-table > tr > td > p {
-  margin-top: .8em;
+  margin-top: 8px;
   font-size: .65em;
   line-height: .65em;
   font-family: 'Open Sans', sans-serif;
@@ -144,4 +173,30 @@ td {
 .icon-table2 {
   background-color: transparent;
   text-align: left;
+}
+
+@media only screen and (max-width : 768px) {
+  .writing-container {
+    margin-top: 7px;
+    width: 420px;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  .left {
+    padding: 0px;
+  }
+  .writing-container {
+    width: 318px;
+  }
+  .writing-box {
+    width: 240px;
+    font-size: 1.5em;
+  }
+  .options {
+    padding: 5px 0px;
+  }
+  .submit {
+    padding: 8px 60px;
+  }
 }

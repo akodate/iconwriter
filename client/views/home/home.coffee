@@ -21,6 +21,13 @@ Template.home.rendered = () ->
   Table.insert(table)
   $('.writing-area').hide()
 
+  width = getWidth()
+  if width < 768
+    if width < 480
+      width = width - 10
+    $('.iphone-container').css('margin-left', (width - 321) / 2 + 'px')
+    $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
+
   # c = document.getElementById("canvas")
   # ctx = c.getContext("2d")
   # img = $('.iphone')[0]
@@ -336,6 +343,8 @@ specialCase = (text, result, rows) ->
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
+@getWidth = () ->
+  if (window.innerWidth > 0) then window.innerWidth else screen.width
 
 @IconWriterUpdate = (objects) ->
   IconWriter.update({}, {$set: objects})
