@@ -1,7 +1,7 @@
 LEGALCHARS = new RegExp(/[a-z0-9\s\_.?!+$]/)
-THREETYPES = 'abglmnoprst'
+THREETYPES = 'abgilmnoprst'
 TWOTYPES = 'cdefhjqvwxy'
-ONETYPE = 'ikuz'
+ONETYPE = 'kuz'
 
 @Table = new Meteor.Collection(null)
 @IconWriter = new Meteor.Collection(null)
@@ -20,6 +20,87 @@ Template.home.rendered = () ->
 
   Table.insert(table)
   $('.writing-area').hide()
+
+  # c = document.getElementById("canvas")
+  # ctx = c.getContext("2d")
+  # img = $('.iphone')[0]
+  # ctx.scale .5, .5
+  # ctx.drawImage img, 10, 10
+
+
+
+  # img = $('.iphone')[0] #/ provide the image
+  # canvas = document.getElementById("canvas") #/ provide the canvas element
+  # ctx = canvas.getContext("2d") #/ context
+  # canvas.width = img.width #/ set width = image width
+  # canvas.height = img.height #/ set height = image height
+  # ctx.drawImage img, 0, 0 #/ draw image 1:1 @ [0, 0]
+
+
+
+  # drawImage = (opts) ->
+  #   throw ("A canvas is required")  unless opts.canvas
+  #   throw ("Image is required")  unless opts.image
+
+  #   # get the canvas and context
+  #   canvas = opts.canvas
+  #   console.log canvas
+  #   context = canvas.getContext("2d")
+  #   image = opts.image
+
+  #   # now default all the dimension info
+  #   srcx = opts.srcx or 0
+  #   srcy = opts.srcy or 0
+  #   srcw = opts.srcw or image.naturalWidth
+  #   srch = opts.srch or image.naturalHeight
+  #   desx = opts.desx or srcx
+  #   desy = opts.desy or srcy
+  #   desw = opts.desw or srcw
+  #   desh = opts.desh or srch
+  #   auto = opts.auto
+
+  #   # finally query the various pixel ratios
+  #   devicePixelRatio = window.devicePixelRatio or 1
+  #   backingStoreRatio = context.webkitBackingStorePixelRatio or context.mozBackingStorePixelRatio or context.msBackingStorePixelRatio or context.oBackingStorePixelRatio or context.backingStorePixelRatio or 1
+  #   ratio = devicePixelRatio / backingStoreRatio
+
+  #   # ensure we have a value set for auto.
+  #   # If auto is set to false then we
+  #   # will simply not upscale the canvas
+  #   # and the default behaviour will be maintained
+  #   auto = true  if typeof auto is "undefined"
+
+  #   # upscale the canvas if the two ratios don't match
+  #   if auto and devicePixelRatio isnt backingStoreRatio
+  #     oldWidth = canvas.width
+  #     oldHeight = canvas.height
+  #     canvas.width = oldWidth * ratio
+  #     canvas.height = oldHeight * ratio
+  #     canvas.style.width = oldWidth + "px"
+  #     canvas.style.height = oldHeight + "px"
+
+  #     # now scale the context to counter
+  #     # the fact that we've manually scaled
+  #     # our canvas element
+  #     context.scale ratio, ratio
+  #   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
+  #   return
+  # opts = {}
+  # opts.canvas = $("#canvas")[0]
+  # opts.image = $(".iphone")[0]
+  # drawImage opts
+
+  # html2canvas document.body,
+  #   onrendered: (canvas) ->
+  #     document.body.appendChild canvas
+
+  # var c, ctx, img;
+  # c = document.getElementById("canvas");
+  # c.style.width = "700px";
+  # c.style.height = "700px";
+  # ctx = c.getContext("2d");
+  # img = $('.iphone')[0];
+  # ctx.drawImage(img, 0, 0);
 
 
 
