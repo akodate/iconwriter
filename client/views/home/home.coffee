@@ -144,6 +144,9 @@ Template.home.events
     if $('.legend-container').hasClass('fadeIn')
       $('.legend-container').removeClass('fadeIn')
       $('.legend-container').addClass('fadeOut')
+      Meteor.setTimeout (() ->
+        $('.legend-container').hide()
+      ), 500
     else
       $('.legend-container').removeClass('fadeOut')
       $('.legend-container').addClass('fadeIn')

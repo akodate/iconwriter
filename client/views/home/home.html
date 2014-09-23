@@ -105,17 +105,17 @@
         </table>
       </div>
     </div>
-    <div class="writing-area animated {{essayAnimate}}">
-      <table class="icon-table2">
-        {{#with table}}
-          {{#each rows}}
-            {{#each letters}}
-              <img class="icon" src="{{this}}.png">
-            {{/each}}
-          {{/each}}
-        {{/with}}
-      </table>
-    </div>
   </div>
   <div class="empty col-md-2 lg-hidden"></div>
+  <div class="writing-area animated {{essayAnimate}}">
+    <table class="icon-table2">
+      {{#with table}}
+        {{#each rows}}
+          {{#each letters}}
+            <img class="icon" src="{{this}}.png">
+          {{/each}}
+        {{/each}}
+      {{/with}}
+    </table>
+  </div>
 </template>
