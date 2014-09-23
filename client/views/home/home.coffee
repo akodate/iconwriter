@@ -494,11 +494,21 @@ Handlebars.registerHelper 'title', (appName) ->
     # the fact that we've manually scaled
     # our canvas element
 
-    # context.scale ratio, ratio ?????????????
+    context.scale ratio, ratio
 
   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
-  return
+  drawIcons(context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh)
 
+@drawIcons = (context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh) ->
+  context.scale 96/175, 96/175
+  srcw = 175
+  srch = 175
+  desw = 175
+  desh = 175
+  for icon, index in $('.icon')[0..19]
+    desx = $(icon).position().left * 175/96 * 2 + (30 * 175/96 * 2)
+    desy = $(icon).position().top * 175/96 * 2 + (115 * 175/96 * 2)
+    context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh # 124*1*175/96
 
   # var c, ctx, img;
   # c = document.getElementById("canvas");
