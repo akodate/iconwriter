@@ -498,6 +498,7 @@ Handlebars.registerHelper 'title', (appName) ->
 
   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
   drawIcons(context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh)
+  drawText(context)
 
 @drawIcons = (context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh) ->
   context.scale 96/175, 96/175
@@ -505,10 +506,21 @@ Handlebars.registerHelper 'title', (appName) ->
   srch = 175
   desw = 175
   desh = 175
-  for icon, index in $('.icon')[0..19]
+  for icon, index in $('.icon:visible')
     desx = $(icon).position().left * 175/96 * 2 + (30 * 175/96 * 2)
     desy = $(icon).position().top * 175/96 * 2 + (115 * 175/96 * 2)
     context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh # 124*1*175/96
+
+@drawText = (context) ->
+  context.scale 175/96*2, 175/96*2
+  context.font = "8.8px sans-serif";
+  context.textAlign = 'center';
+  context.fillStyle = 'rgba(220,220,220,1)'
+  for iconText, index in $('.icon-text')
+    desx = $(iconText).position().left + 30 + 61 / 2
+    desy = $(iconText).position().top + 125
+    context.fillText($(iconText).text(), desx, desy);
+
 
   # var c, ctx, img;
   # c = document.getElementById("canvas");
