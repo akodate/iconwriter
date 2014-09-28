@@ -30,7 +30,6 @@ Template.home.rendered = () ->
 
 
 
-
 Template.home.events
   "keydown .writing-box, click .submit": (event, ui) ->
     if event.keyCode == 13 || event.keyCode == undefined
@@ -108,6 +107,7 @@ Template.home.helpers
       'fadeIn'
     else
       'fadeOut'
+
 
 
 @generateTable = (text) ->
@@ -427,21 +427,6 @@ Handlebars.registerHelper 'title', (appName) ->
     when 'y_2' then 'DailyCost'
     else 'MissingNo'
 
-  # c = document.getElementById("canvas")
-  # ctx = c.getContext("2d")
-  # img = $('.iphone')[0]
-  # ctx.scale .5, .5
-  # ctx.drawImage img, 10, 10
-
-
-
-  # img = $('.iphone')[0] #/ provide the image
-  # canvas = document.getElementById("canvas") #/ provide the canvas element
-  # ctx = canvas.getContext("2d") #/ context
-  # canvas.width = img.width #/ set width = image width
-  # canvas.height = img.height #/ set height = image height
-  # ctx.drawImage img, 0, 0 #/ draw image 1:1 @ [0, 0]
-
 
 
 @drawImage = (opts) ->
@@ -520,32 +505,3 @@ Handlebars.registerHelper 'title', (appName) ->
     desx = $(iconText).position().left + 30 + 61 / 2
     desy = $(iconText).position().top + 125
     context.fillText($(iconText).text(), desx, desy);
-
-
-  # var c, ctx, img;
-  # c = document.getElementById("canvas");
-  # c.style.width = "640px";
-  # c.style.height = "640px";
-  # ctx = c.getContext("2d");
-  # img = $('.iphone')[0];
-  # ctx.drawImage(img, 0, 0);
-
-
-
-  # var can = document.getElementById("canvas");
-  # var ctx = can.getContext("2d");
-  # var scaleFactor = backingScale(ctx);
-
-  # if (scaleFactor > 1) {
-  #     can.width = can.width * scaleFactor;
-  #     can.height = can.height * scaleFactor;
-  #     // update the context for the new canvas scale
-  #     var ctx = can.getContext("2d");
-  # }
-
-  # img = $('.iphone')[0];
-  # ctx.drawImage(img, 0, 0);
-
-# @backingScale = (context) ->
-#   return window.devicePixelRatio  if window.devicePixelRatio > 1  if "devicePixelRatio" of window
-#   1
