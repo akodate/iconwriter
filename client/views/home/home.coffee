@@ -21,12 +21,7 @@ Template.home.rendered = () ->
   Table.insert(table)
   $('.writing-area').hide()
 
-  width = getWidth()
-  if width < 768
-    if width < 480
-      width = width - 10
-    $('.iphone-container').css('margin-left', (width - 321) / 2 + 'px')
-    $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
+  setPhoneWidth()
 
 
 
@@ -110,6 +105,16 @@ Template.home.helpers
 
 
 
+# Basic helpers
+
+@setPhoneWidth = () ->
+  width = getWidth()
+  if width < 768
+    if width < 480
+      width = width - 10
+    $('.iphone-container').css('margin-left', (width - 321) / 2 + 'px')
+    $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
+
 @generateTable = (text) ->
   rows = []
   text = text.split('')
@@ -153,6 +158,8 @@ Template.home.helpers
   link.download = filename
 
 
+
+# Other helpers
 
 isSpecialCase = (text) ->
   if test(text, 'whatsapp') then 'whatsapp'

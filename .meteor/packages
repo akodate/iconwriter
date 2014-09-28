@@ -4,12 +4,9 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 mizzao:bootstrap-3
 datariot:ganalytics
 iron:router
 coffeescript
 mrt:iron-router-progress
 mrt:jquery-color-animation
-
