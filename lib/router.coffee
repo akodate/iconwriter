@@ -8,6 +8,13 @@ Router.map( ->
     onAfterAction: ->
       GAnalytics.pageview()
   })
+  @route('home', {
+    path: '/:input',
+    data: ->
+      @params.input
+    onAfterAction: ->
+      GAnalytics.pageview()
+  })
   @route('about', {
     path: '/about',
     onAfterAction: ->

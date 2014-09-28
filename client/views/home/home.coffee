@@ -20,8 +20,12 @@ Template.home.rendered = () ->
 
   Table.insert(table)
   $('.writing-area').hide()
-
   setPhoneWidth()
+
+  text = window.location.search[1..-1]
+  $('.writing-box').val(text)
+  generateTable(text)
+  $('.writing-box').putCursorAtEnd()
 
 
 
@@ -435,6 +439,16 @@ Handlebars.registerHelper 'title', (appName) ->
     else 'MissingNo'
 
 
+
+@jQuery.fn.putCursorAtEnd = ->
+  @each ->
+    $(this).focus()
+    if @setSelectionRange
+      len = $(this).val().length * 2
+      @setSelectionRange len, len
+    else
+      $(this).val $(this).val()
+    @scrollTop = 999999
 
 @drawImage = (opts) ->
   throw ("A canvas is required")  unless opts.canvas
