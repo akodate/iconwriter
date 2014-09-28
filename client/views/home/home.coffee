@@ -84,12 +84,14 @@ Template.home.events
     text = event.target.outerText
     $('.writing-box').val($('.writing-box').val() + text)
 
+  "click #download": (event, ui) ->
+    downloadCanvas(event.target, 'canvas', 'test.jpg')
+
 
 
 Template.home.helpers
 
   table: ->
-    # console.log Table.findOne({})
     Table.findOne({})
 
   iPhoneAnimate: ->
@@ -119,17 +121,12 @@ Template.home.helpers
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
-      # console.log text
-      # console.log "Text[0] is: " + text[0]
       while text[0] && !text[0].match(LEGALCHARS)
-        # console.log 'illegal char'
         text = text.slice(1)
       if text.length > 0
         if result = isSpecialCase(text)
-          # console.log 'special'
           text = specialCase(text, result, rows)
         else
-          # console.log 'not special'
           rows[rows.length - 1]['letters'].push(text[0])
           text = text.slice(1)
   diversify(rows)
@@ -150,6 +147,10 @@ Template.home.helpers
               newIcon = icon + '_' + (counter % typeCount + 1)
               rows[index].letters[index2] = newIcon
             counter += 1
+
+@downloadCanvas = (link, canvasId, filename) ->
+  link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
+  link.download = filename
 
 
 
@@ -268,7 +269,6 @@ test = (text, query) ->
   else false
 
 specialCase = (text, result, rows) ->
-  # console.log 'special'
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
