@@ -65,18 +65,19 @@ td {
 
 .writing-box {
   display: block;
+  width: 8em;
   margin-top: .8em;
   margin-left: auto;
   margin-right: auto;
-  width: 8em;
+  border-radius: .5em;
   background-color: rgba(255,255,255,1);
   color: black;
   font-size: 2.5em;
 }
 
 .options {
-  margin: 1em 1em;
-  background-color: rgba(50,50,50,1);
+  margin: 1em 1em 0em;
+  background-color: transparent;
   color: rgba(200,200,200,1);
 }
 
@@ -95,7 +96,7 @@ td {
 }
 
 .legend, .essay, .legend-text {
-  background-color: transparent;
+
 }
 
 .legend-container {

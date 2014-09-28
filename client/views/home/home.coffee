@@ -58,13 +58,6 @@ Template.home.events
       generateTable(text)
 
   "click .legend": (event, ui) ->
-
-    opts = {}
-    opts.canvas = $("#canvas")[0]
-    opts.image = $(".iphone")[0]
-    drawImage opts
-    return
-
     $('.legend-container').show()
     if $('.legend-container').hasClass('fadeIn')
       $('.legend-container').removeClass('fadeIn')
@@ -84,7 +77,14 @@ Template.home.events
     $('.writing-box').val($('.writing-box').val() + text)
 
   "click #download": (event, ui) ->
+    opts = {}
+    opts.canvas = $("#canvas")[0]
+    opts.image = $(".iphone")[0]
+    drawImage opts
+    $('#canvas').show()
+
     downloadCanvas(event.target, 'canvas', 'test.jpg')
+    $('#canvas').hide()
 
 
 
