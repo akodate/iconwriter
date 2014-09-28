@@ -6,26 +6,21 @@ ONETYPE = 'kuz'
 @Table = new Meteor.Collection(null)
 @IconWriter = new Meteor.Collection(null)
 
-@table = {}
-@table['rows'] = []
-row1 = {}
-row1['letters'] = ['a', 'b', 'c', 'd']
-row2 = {}
-row2['letters'] = ['d', 'c', 'b', 'a']
-@table['rows'].push row1, row2
-
 IconWriter.insert({iPhoneDisplay: true})
+Table.insert({})
 
 Template.home.rendered = () ->
 
-  Table.insert(table)
+  if window.location.search == ''
+    generateTable('placeholder')
+  else
+    text = window.location.search[1..-1]
+    $('.writing-box').val(text)
+    generateTable(text)
+    $('.writing-box').putCursorAtEnd()
+
   $('.writing-area').hide()
   setPhoneWidth()
-
-  text = window.location.search[1..-1]
-  $('.writing-box').val(text)
-  generateTable(text)
-  $('.writing-box').putCursorAtEnd()
 
 
 

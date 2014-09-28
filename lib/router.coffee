@@ -9,9 +9,7 @@ Router.map( ->
       GAnalytics.pageview()
   })
   @route('home', {
-    path: '/:input',
-    data: ->
-      @params.input
+    path: '/?input',
     onAfterAction: ->
       GAnalytics.pageview()
   })
