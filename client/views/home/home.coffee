@@ -62,9 +62,11 @@ Template.home.events
     else
       $('.legend-container').removeClass('fadeOut')
       $('.legend-container').addClass('fadeIn')
-    $('#main').animate(
-      scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
-      'slow')
+
+    if window.matchMedia("(max-width: 768px)").matches
+      $('#main').animate(
+        scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
+        'slow')
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
@@ -72,6 +74,7 @@ Template.home.events
   "click .legend-text": (event, ui) ->
     text = event.target.outerText
     $('.writing-box').val($('.writing-box').val() + text)
+    generateTable($('.writing-box').val())
 
   "click #download": (event, ui) ->
     opts = {}
