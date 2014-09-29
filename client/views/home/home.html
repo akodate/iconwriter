@@ -10,85 +10,13 @@
       <!-- <button type="button" class="btn options essay">Switch Canvas</button> -->
       <a id="download" class="btn options">Download</a>
     </div>
-    <div class="writing-container legend-container animated fadeOut" style="display: none">
-      <div class="col-md-6 legend-col">
-        <h2 class="legend-heading">Popular</h2>
-        <button type="button" class="btn options legend-text">netflix</button>
-        <button type="button" class="btn options legend-text">whatsapp</button>
-        <button type="button" class="btn options legend-text">tweet</button>
-        <button type="button" class="btn options legend-text">youtube</button>
-        <button type="button" class="btn options legend-text">templerun</button>
-        <button type="button" class="btn options legend-text">shazam</button>
-        <button type="button" class="btn options legend-text">snapchat</button>
-        <button type="button" class="btn options legend-text">minecraft</button>
-        <button type="button" class="btn options legend-text">messenger</button>
-        <button type="button" class="btn options legend-text">instagram</button>
-        <button type="button" class="btn options legend-text">clashofclans</button>
-        <button type="button" class="btn options legend-text">fruitninja</button>
-        <button type="button" class="btn options legend-text">candycrush</button>
-        <button type="button" class="btn options legend-text">angrybirds</button>
-        <button type="button" class="btn options legend-text">2048</button>
-      </div>
-      <div class="col-md-6 legend-col">
-        <h2 class="legend-heading">Special</h2>
-        <button type="button" class="btn options legend-text">in</button>
-        <button type="button" class="btn options legend-text">dragon</button>
-        <button type="button" class="btn options legend-text">epi</button>
-        <button type="button" class="btn options legend-text">ted</button>
-        <button type="button" class="btn options legend-text">vision</button>
-        <button type="button" class="btn options legend-text">oo</button>
-        <button type="button" class="btn options legend-text">ok</button>
-        <button type="button" class="btn options legend-text">heart</button>
-        <button type="button" class="btn options legend-text">airplane</button>
-        <button type="button" class="btn options legend-text">dd</button>
-        <button type="button" class="btn options legend-text">line</button>
-        <button type="button" class="btn options legend-text">book</button>
-        <button type="button" class="btn options legend-text">check</button>
-        <button type="button" class="btn options legend-text">yelp</button>
-        <button type="button" class="btn options legend-text">42</button>
-        <button type="button" class="btn options legend-text">smile</button>
-        <!-- <button type="button" class="btn options legend-text">holybible</button> -->
-        <button type="button" class="btn options legend-text">creeper</button>
-        <button type="button" class="btn options legend-text">joyous</button>
-        <button type="button" class="btn options legend-text">cc</button>
-        <button type="button" class="btn options legend-text">book</button>
-        <button type="button" class="btn options legend-text">sky</button>
-        <button type="button" class="btn options legend-text">globe</button>
-        <button type="button" class="btn options legend-text">ps</button>
-        <button type="button" class="btn options legend-text">scarykids</button>
-        <button type="button" class="btn options legend-text">sunny</button>
-        <button type="button" class="btn options legend-text">starry</button>
-        <button type="button" class="btn options legend-text">jpyen</button>
-        <button type="button" class="btn options legend-text">fixit</button>
-        <button type="button" class="btn options legend-text">trevi</button>
-        <button type="button" class="btn options legend-text">pressplay</button>
-        <button type="button" class="btn options legend-text">musicnote</button>
-        <button type="button" class="btn options legend-text">unimpressed</button>
-        <button type="button" class="btn options legend-text">interested</button>
-        <button type="button" class="btn options legend-text">burger</button>
-        <button type="button" class="btn options legend-text">be</button>
-        <button type="button" class="btn options legend-text">weathertron</button>
-        <button type="button" class="btn options legend-text">maxi</button>
-        <button type="button" class="btn options legend-text">aa</button>
-        <button type="button" class="btn options legend-text">asleep</button>
-        <button type="button" class="btn options legend-text">atm</button>
-        <button type="button" class="btn options legend-text">determined</button>
-        <button type="button" class="btn options legend-text">hello</button>
-        <button type="button" class="btn options legend-text">jello</button>
-        <button type="button" class="btn options legend-text">kitty</button>
-        <button type="button" class="btn options legend-text">tea</button>
-        <button type="button" class="btn options legend-text">xs</button>
-        <button type="button" class="btn options legend-text">yolo</button>
-        <button type="button" class="btn options legend-text">yum</button>
-        <button type="button" class="btn options legend-text">imo</button>
-        <button type="button" class="btn options legend-text">quotes</button>
-        <button type="button" class="btn options legend-text">ib</button>
-      </div>
+    <div id="legend1">
+      {{> legendContent}}
     </div>
   </div>
   <div class="empty col-sm-2 col-md-2 hidden-lg"></div>
   <div class="right col-lg-5 col-md-5 col-sm-4 col-xs-12">
-    <div class="iphone-container animated {{iPhoneAnimate}}">
+    <div class="iphone-container animated {{iPhoneAnimate}}" style="height: 640px">
       <img class="iphone" src="iphone.png">
       <div class="icon-table-container">
         <table class="icon-table">
@@ -117,6 +45,97 @@
       {{/with}}
     </table>
   </div>
+  <div id="legend2">
+    {{> legendContent}}
+  </div>
   <canvas id="canvas" style="width: 598px; height: 1280px; display: none">
   </canvas>
+</template>
+
+<template name="legendContent">
+  <div class="writing-container legend-container animated fadeOut" style="display: none">
+    <div class="col-md-4 legend-col">
+      <h2 class="legend-heading">Popular Apps</h2>
+      <button type="button" class="btn options legend-text">netflix</button>
+      <button type="button" class="btn options legend-text">whatsapp</button>
+      <button type="button" class="btn options legend-text">tweet</button>
+      <button type="button" class="btn options legend-text">youtube</button>
+      <button type="button" class="btn options legend-text">templerun</button>
+      <button type="button" class="btn options legend-text">shazam</button>
+      <button type="button" class="btn options legend-text">snapchat</button>
+      <button type="button" class="btn options legend-text">minecraft</button>
+      <button type="button" class="btn options legend-text">messenger</button>
+      <button type="button" class="btn options legend-text">instagram</button>
+      <button type="button" class="btn options legend-text">clashofclans</button>
+      <button type="button" class="btn options legend-text">fruitninja</button>
+      <button type="button" class="btn options legend-text">candycrush</button>
+      <button type="button" class="btn options legend-text">angrybirds</button>
+      <button type="button" class="btn options legend-text">2048</button>
+    </div>
+    <div class="col-md-4 legend-col">
+      <h2 class="legend-heading">Letter Combos</h2>
+      <button type="button" class="btn options legend-text">in</button>
+      <button type="button" class="btn options legend-text">yolo</button>
+      <button type="button" class="btn options legend-text">epi</button>
+      <button type="button" class="btn options legend-text">ted</button>
+      <button type="button" class="btn options legend-text">oo</button>
+      <button type="button" class="btn options legend-text">ok</button>
+      <button type="button" class="btn options legend-text">dd</button>
+      <button type="button" class="btn options legend-text">sky</button>
+      <button type="button" class="btn options legend-text">cc</button>
+      <button type="button" class="btn options legend-text">ps</button>
+      <button type="button" class="btn options legend-text">be</button>
+      <button type="button" class="btn options legend-text">aa</button>
+      <button type="button" class="btn options legend-text">atm</button>
+      <button type="button" class="btn options legend-text">jello</button>
+      <button type="button" class="btn options legend-text">tea</button>
+      <button type="button" class="btn options legend-text">xs</button>
+      <button type="button" class="btn options legend-text">ib</button>
+      <button type="button" class="btn options legend-text">imo</button>
+      <button type="button" class="btn options legend-text">yum</button>
+      <button type="button" class="btn options legend-text">maxi</button>
+      <button type="button" class="btn options legend-text">line</button>
+      <button type="button" class="btn options legend-text">dragon</button>
+      <button type="button" class="btn options legend-text">yelp</button>
+    </div>
+    <div class="col-md-4 legend-col">
+      <h2 class="legend-heading">Emoticon Icons</h2>
+      <button type="button" class="btn options legend-text">vision</button>
+      <button type="button" class="btn options legend-text">heart</button>
+      <button type="button" class="btn options legend-text">airplane</button>
+      <button type="button" class="btn options legend-text">holybible</button>
+      <button type="button" class="btn options legend-text">creeper</button>
+      <button type="button" class="btn options legend-text">check</button>
+      <button type="button" class="btn options legend-text">scarykids</button>
+      <button type="button" class="btn options legend-text">sunny</button>
+      <button type="button" class="btn options legend-text">starry</button>
+      <button type="button" class="btn options legend-text">jpyen</button>
+      <button type="button" class="btn options legend-text">fixit</button>
+      <button type="button" class="btn options legend-text">pressplay</button>
+      <button type="button" class="btn options legend-text">musicnote</button>
+      <button type="button" class="btn options legend-text">unimpressed</button>
+      <button type="button" class="btn options legend-text">interested</button>
+      <button type="button" class="btn options legend-text">burger</button>
+      <button type="button" class="btn options legend-text">book</button>
+      <button type="button" class="btn options legend-text">smile</button>
+      <button type="button" class="btn options legend-text">joyous</button>
+      <button type="button" class="btn options legend-text">globe</button>
+      <button type="button" class="btn options legend-text">asleep</button>
+      <button type="button" class="btn options legend-text">determined</button>
+      <button type="button" class="btn options legend-text">hello</button>
+      <button type="button" class="btn options legend-text">kitty</button>
+      <button type="button" class="btn options legend-text">quotes</button>
+      <button type="button" class="btn options legend-text">42</button>
+    </div>
+<!--       <div class="col-md-6 legend-col">
+      <h2 class="legend-heading">Symbols</h2>
+      <button type="button" class="btn options legend-text">!?</button>
+      <button type="button" class="btn options legend-text"> </button>
+      <button type="button" class="btn options legend-text">?</button>
+      <button type="button" class="btn options legend-text">.</button>
+      <button type="button" class="btn options legend-text">!</button>
+      <button type="button" class="btn options legend-text">+</button>
+      <button type="button" class="btn options legend-text">$</button>
+    </div> -->
+  </div>
 </template>

@@ -62,6 +62,9 @@ Template.home.events
     else
       $('.legend-container').removeClass('fadeOut')
       $('.legend-container').addClass('fadeIn')
+    $('#main').animate(
+      scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
+      'slow')
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
