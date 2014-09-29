@@ -9,8 +9,9 @@ Router.map( ->
       GAnalytics.pageview()
   })
   @route('home', {
-    path: '/?input',
+    path: '/:input',
     onAfterAction: ->
+      generateTable(@params.input)
       GAnalytics.pageview()
   })
   @route('about', {

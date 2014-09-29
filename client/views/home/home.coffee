@@ -11,10 +11,10 @@ Table.insert({})
 
 Template.home.rendered = () ->
 
-  if window.location.search == ''
-    generateTable('placeholder')
+  if window.location.pathname[1..-1] == ''
+    Router.go('home', {input: 'placeholder'})
   else
-    text = window.location.search[1..-1]
+    text = window.location.pathname[1..-1]
     $('.writing-box').val(text)
     generateTable(text)
     $('.writing-box').putCursorAtEnd()
@@ -121,6 +121,9 @@ Template.home.helpers
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
 
 @generateTable = (text) ->
+  if text != window.location.pathname[1..-1]
+    console.log 'itta yo'
+    Router.go('home', {input: text})
   rows = []
   text = text.split('')
   if IconWriterFind('iPhoneDisplay')
@@ -292,6 +295,16 @@ specialCase = (text, result, rows) ->
 
 @IconWriterFind = (field) ->
   IconWriter.findOne()[field]
+
+Handlebars.registerHelper 'getImage', () ->
+  opts = {}
+  opts.canvas = $("#canvas")[0]
+  opts.image = $(".iphone")[0]
+  drawImage opts
+  $("#canvas").show()
+  finalImage = document.getElementById("canvas").toDataURL("image/jpeg")
+  $("#canvas").hide()
+  return finalImage
 
 Handlebars.registerHelper 'title', (appName) ->
   switch appName
