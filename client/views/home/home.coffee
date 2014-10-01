@@ -86,6 +86,16 @@ Template.home.events
     downloadCanvas(event.target, 'canvas', 'test.jpg')
     $('#canvas').hide()
 
+  "click #fbButton": (event, ui) ->
+    FB.ui
+      method: "share_open_graph"
+      action_type: "og.likes"
+      action_properties: JSON.stringify(object: "http://iconwriter-30354.onmodulus.net/")
+    , (response) ->
+
+  "click .legend": (event, ui) ->
+    fbStuff()
+
 
 
 Template.home.helpers
@@ -163,6 +173,8 @@ Template.home.helpers
 
 @downloadCanvas = (link, canvasId, filename) ->
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
+  console.log link
+  console.log link.href
   link.download = filename
 
 
@@ -540,3 +552,21 @@ Handlebars.registerHelper 'title', (appName) ->
     desx = $(iconText).position().left + 30 + 61 / 2
     desy = $(iconText).position().top + 125
     context.fillText($(iconText).text(), desx, desy);
+
+@fbStuff = ->
+  FB.login (->
+    FB.api "/me/feed", "post",
+      message: "Hello, world!"
+      privacy: {value: "SELF"}
+    , (response) ->
+      if not response or response.error
+        console.log response.error
+      else
+        alert "Post ID: " + response.id
+  ),
+    scope: "publish_actions"
+  , (response) ->
+    if response.authResponse
+      console.log "Logged in!"
+    else
+      console.log response
