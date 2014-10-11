@@ -131,8 +131,7 @@ Template.home.helpers
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
 
 @generateTable = (text) ->
-  if text != window.location.pathname[1..-1]
-    console.log 'itta yo'
+  if encodeURIComponent(text) != window.location.pathname[1..-1]
     Router.go('home', {input: text})
   rows = []
   text = text.split('')
