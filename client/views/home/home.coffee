@@ -13,11 +13,6 @@ Template.home.rendered = ->
 
   if window.location.pathname[1..-1] == ''
     Router.go('home', {input: 'placeholder'})
-  else
-    text = window.location.pathname[1..-1]
-    $('.writing-box').val(text)
-    generateTable(text)
-    $('.writing-box').putCursorAtEnd()
 
   $('.writing-area').hide()
   setPhoneWidth()
@@ -27,13 +22,9 @@ Template.home.rendered = ->
 Template.home.events
   "keydown .writing-box, click .submit": (event, ui) ->
     if event.keyCode == 13 || event.keyCode == undefined
-      $('.submit').css
-        backgroundColor: 'white'
-      $('.submit').animate
-        backgroundColor: 'black',
-        1500
       event.preventDefault()
       event.stopPropagation()
+      submitButtonFlash()
       text = $('.writing-box')[0].value.toLowerCase()
       generateTable(text)
       false
@@ -54,19 +45,11 @@ Template.home.events
   "click .legend": (event, ui) ->
     $('.legend-container').show()
     if $('.legend-container').hasClass('fadeIn')
-      $('.legend-container').removeClass('fadeIn')
-      $('.legend-container').addClass('fadeOut')
-      Meteor.setTimeout (() ->
-        $('.legend-container').hide()
-      ), 500
+      fadeOutLegend()
     else
-      $('.legend-container').removeClass('fadeOut')
-      $('.legend-container').addClass('fadeIn')
-
+      fadeInLegend()
     if window.matchMedia("(max-width: 768px)").matches
-      $('#main').animate(
-        scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
-        'slow')
+      scrollToLegend()
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
@@ -83,7 +66,6 @@ Template.home.events
     drawImage opts
     canvasResizer()
     $('#canvas').show()
-
     downloadCanvas(event.target, 'canvas', 'test.jpg')
     $('#canvas').hide()
 
@@ -91,7 +73,7 @@ Template.home.events
     FB.ui
       method: "share_open_graph"
       action_type: "og.likes"
-      action_properties: JSON.stringify(object: "http://iconwriter-30354.onmodulus.net/")
+      action_properties: JSON.stringify(object: "http://iconwriter.wtf/")
     , (response) ->
 
   "click .legend": (event, ui) ->
@@ -132,14 +114,10 @@ Template.home.helpers
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
 
 @generateTable = (text) ->
-  if encodeURIComponent(text) != window.location.pathname[1..-1]
-    Router.go('home', {input: text})
+  return unless matchingURL(text)
   rows = []
   text = text.split('')
-  if IconWriterFind('iPhoneDisplay')
-    maxRows = 5
-  else
-    maxRows = 75
+  maxRows = setMaxRows()
   while text.length > 0 && rows.length < maxRows
     rows.push {}
     rows[rows.length - 1]['letters'] = []
@@ -152,10 +130,25 @@ Template.home.helpers
         else
           rows[rows.length - 1]['letters'].push(text[0])
           text = text.slice(1)
-  diversify(rows)
+  diversifyIcons(rows)
   Table.update({}, {rows})
+  $('.icon').css(display: 'none')
+  $('.icon').css(display: 'table')
 
-@diversify = (rows) ->
+@matchingURL = (text) ->
+  if encodeURIComponent(text) != window.location.pathname[1..-1]
+    Router.go('home', {input: text})
+    false
+  else
+    true
+
+@setMaxRows = ->
+  if IconWriterFind('iPhoneDisplay')
+    5
+  else
+    75
+
+@diversifyIcons = (rows) ->
   parse(rows, THREETYPES, 3)
   parse(rows, TWOTYPES, 2)
 
@@ -171,12 +164,32 @@ Template.home.helpers
               rows[index].letters[index2] = newIcon
             counter += 1
 
+@submitButtonFlash = ->
+  $('.submit').css
+    backgroundColor: 'white'
+  $('.submit').animate
+    backgroundColor: 'black',
+    1500
+
 @downloadCanvas = (link, canvasId, filename) ->
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
-  console.log link
-  console.log link.href
   link.download = filename
 
+@fadeOutLegend = ->
+  $('.legend-container').removeClass('fadeIn')
+  $('.legend-container').addClass('fadeOut')
+  Meteor.setTimeout (() ->
+    $('.legend-container').hide()
+  ), 500
+
+@fadeInLegend = ->
+  $('.legend-container').removeClass('fadeOut')
+  $('.legend-container').addClass('fadeIn')
+
+@scrollToLegend = ->
+  $('#main').animate(
+    scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
+    'slow')
 
 
 # Other helpers
@@ -290,12 +303,13 @@ isSpecialCase = (text) ->
   else if test(text, 'y_2') then 'y_2'
   else false
 
-test = (text, query) ->
+@test = (text, query) ->
   if text[0..(query.length - 1)] + '' == query.split('') + ''
     query
-  else false
+  else
+    false
 
-specialCase = (text, result, rows) ->
+@specialCase = (text, result, rows) ->
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
@@ -307,16 +321,6 @@ specialCase = (text, result, rows) ->
 
 @IconWriterFind = (field) ->
   IconWriter.findOne()[field]
-
-Handlebars.registerHelper 'getImage', () ->
-  opts = {}
-  opts.canvas = $("#canvas")[0]
-  opts.image = $(".iphone")[0]
-  drawImage opts
-  $("#canvas").show()
-  finalImage = document.getElementById("canvas").toDataURL("image/jpeg")
-  $("#canvas").hide()
-  return finalImage
 
 Handlebars.registerHelper 'title', (appName) ->
   switch appName
@@ -486,7 +490,6 @@ Handlebars.registerHelper 'title', (appName) ->
   canvas.width = $('#canvas').width() # ?????????
   canvas.height = $('#canvas').height() # ??????????
 
-  console.log canvas
   context = canvas.getContext("2d")
   image = opts.image
 
@@ -541,7 +544,7 @@ Handlebars.registerHelper 'title', (appName) ->
   for icon, index in $('.icon:visible')
     desx = $(icon).position().left * 175/96 * 2 + (30 * 175/96 * 2)
     desy = $(icon).position().top * 175/96 * 2 + (115 * 175/96 * 2)
-    context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh # 124*1*175/96
+    context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh
 
 @drawText = (context) ->
   context.scale 175/96*2, 175/96*2
@@ -560,16 +563,13 @@ Handlebars.registerHelper 'title', (appName) ->
   inMemCanvas = document.createElement("canvas")
   inMemCtx = inMemCanvas.getContext("2d")
 
-  resizeCanvas = ->
-    inMemCanvas.width = canvasRef.width
-    inMemCanvas.height = canvasRef.height
-    inMemCtx.scale .5, .5
-    inMemCtx.drawImage canvasRef, 0, 0
-    canvasRef.width = 598
-    canvasRef.height = 1280
-    ctx.drawImage inMemCanvas, 0, 0
-
-  resizeCanvas()
+  inMemCanvas.width = canvasRef.width
+  inMemCanvas.height = canvasRef.height
+  inMemCtx.scale .5, .5
+  inMemCtx.drawImage canvasRef, 0, 0
+  canvasRef.width = 598
+  canvasRef.height = 1280
+  ctx.drawImage inMemCanvas, 0, 0
 
 @fbStuff = ->
   FB.login (->
