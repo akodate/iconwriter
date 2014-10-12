@@ -11,6 +11,7 @@ Router.map( ->
   @route('home', {
     path: '/:input',
     onAfterAction: ->
+      # Meteor.call 'serverMethod'
       generateTable(@params.input)
       GAnalytics.pageview()
   })
