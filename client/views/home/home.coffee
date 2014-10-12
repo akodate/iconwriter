@@ -9,7 +9,7 @@ ONETYPE = 'kuz'
 IconWriter.insert({iPhoneDisplay: true})
 Table.insert({})
 
-Template.home.rendered = () ->
+Template.home.rendered = ->
 
   if window.location.pathname[1..-1] == ''
     Router.go('home', {input: 'placeholder'})
@@ -81,6 +81,7 @@ Template.home.events
     opts.canvas = $("#canvas")[0]
     opts.image = $(".iphone")[0]
     drawImage opts
+    canvasResizer()
     $('#canvas').show()
 
     downloadCanvas(event.target, 'canvas', 'test.jpg')
@@ -122,7 +123,7 @@ Template.home.helpers
 
 # Basic helpers
 
-@setPhoneWidth = () ->
+@setPhoneWidth = ->
   width = getWidth()
   if width < 768
     if width < 480
@@ -298,7 +299,7 @@ specialCase = (text, result, rows) ->
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
-@getWidth = () ->
+@getWidth = ->
   if (window.innerWidth > 0) then window.innerWidth else screen.width
 
 @IconWriterUpdate = (objects) ->
@@ -551,6 +552,24 @@ Handlebars.registerHelper 'title', (appName) ->
     desx = $(iconText).position().left + 30 + 61 / 2
     desy = $(iconText).position().top + 125
     context.fillText($(iconText).text(), desx, desy);
+
+@canvasResizer = ->
+  canvasRef = document.getElementById("canvas")
+  ctx = canvasRef.getContext("2d")
+
+  inMemCanvas = document.createElement("canvas")
+  inMemCtx = inMemCanvas.getContext("2d")
+
+  resizeCanvas = ->
+    inMemCanvas.width = canvasRef.width
+    inMemCanvas.height = canvasRef.height
+    inMemCtx.scale .5, .5
+    inMemCtx.drawImage canvasRef, 0, 0
+    canvasRef.width = 598
+    canvasRef.height = 1280
+    ctx.drawImage inMemCanvas, 0, 0
+
+  resizeCanvas()
 
 @fbStuff = ->
   FB.login (->
