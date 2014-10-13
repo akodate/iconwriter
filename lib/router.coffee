@@ -9,6 +9,17 @@ Router.map( ->
       GAnalytics.pageview()
   })
   @route('home', {
+    path: '/-:extension',
+    waitOn: ->
+      console.log @params.extension
+      $("meta[property='og:image']").attr("content", "http://iconwriter.wtf/" + @params.extension + ".png")
+      debugger
+    onAfterAction: ->
+      # Meteor.call 'serverMethod'
+      generateTable(@params.extension)
+      GAnalytics.pageview()
+  })
+  @route('home', {
     path: '/:input',
     onAfterAction: ->
       # Meteor.call 'serverMethod'

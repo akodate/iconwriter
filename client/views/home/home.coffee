@@ -71,10 +71,21 @@ Template.home.events
 
   "click #fbButton": (event, ui) ->
     FB.ui
-      method: "share_open_graph"
-      action_type: "og.likes"
-      action_properties: JSON.stringify(object: "http://iconwriter.wtf/")
+      method: "share"
+      href: window.location.origin + '/test.html'
     , (response) ->
+
+  # "click #fbButton": (event, ui) ->
+  #   FB.ui
+  #     method: "share_open_graph"
+  #     action_type: "iconwriter:send"
+  #     action_properties: JSON.stringify(
+  #       type: "iconwriter:icon_message"
+  #       url: "http://iconwriter.wtf/test.html"
+  #       title: "This is the title!!"
+  #       description: "This is the description!!"
+  #       image: 'http://iconwriter.wtf/!?.jpg'
+  #     )
 
   "click .legend": (event, ui) ->
     fbStuff()

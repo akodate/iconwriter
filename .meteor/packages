@@ -10,6 +10,7 @@ iron:router
 coffeescript
 mrt:iron-router-progress
 mrt:jquery-color-animation
-spiderable
 glob
+spiderable
+gadicohen:phantomjs
 
