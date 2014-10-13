@@ -173,6 +173,7 @@ Template.home.helpers
 
 @downloadCanvas = (link, canvasId, filename) ->
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
+  Meteor.call 'saveDataURL', filename, link.href
   link.download = filename
 
 @fadeOutLegend = ->

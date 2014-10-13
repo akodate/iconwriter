@@ -33,10 +33,30 @@
     (err, data) ->
       console.log data # Hello World
 
-@saveDataUrl = (fileName, dataUrl) ->
-  dataString = dataUrl.split(",")[1]
-  buffer = new Buffer(dataString, "base64")
-  extension = dataUrl.match(/\/(.*)\;/)[1]
-  fs = require("fs")
-  fullFileName = fileName + "." + extension
-  fs.writeFileSync fullFileName, buffer, "binary"
+Meteor.methods
+
+  saveDataURL: (fileName, dataUrl) ->
+    if Meteor.isServer
+
+      fs = Npm.require("fs")
+      path = Npm.require("path")
+      base = path.resolve('.')
+      console.log 'Base is: ' + base
+
+      BASE = fs.realpathSync(base)
+      console.log 'BASE is: ' + BASE
+      fileTree = new Glob('*', {debug: false, cwd: BASE}, (err, matches) -> )
+      console.log fileTree
+
+      __PUBLIC_FOLDER__ = fs.realpathSync(process.env.APP_DIR + '/programs/web.browser/app')
+      console.log '__PUBLIC_FOLDER__ is: ' + __PUBLIC_FOLDER__
+      fileTree = new Glob('*', {debug: false, cwd: __PUBLIC_FOLDER__}, (err, matches) -> )
+      console.log fileTree
+
+
+      dataString = dataUrl.split(",")[1]
+      buffer = new Buffer(dataString, "base64")
+      # extension = dataUrl.match(/\/(.*)\;/)[1]
+      fullFileName = __PUBLIC_FOLDER__ + '/' + fileName # + "." + extension
+      console.log fullFileName
+      fs.writeFileSync fullFileName, buffer, "binary"
