@@ -70,9 +70,10 @@ Template.home.events
     $('#canvas').hide()
 
   "click #fbButton": (event, ui) ->
+    newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
     FB.ui
       method: "share"
-      href: window.location.origin + '/test.html'
+      href: newURL
     , (response) ->
 
   # "click #fbButton": (event, ui) ->
