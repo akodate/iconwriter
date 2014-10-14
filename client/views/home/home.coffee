@@ -65,9 +65,9 @@ Template.home.events
     opts.image = $(".iphone")[0]
     drawImage opts
     canvasResizer()
-    $('#canvas').show()
-    downloadCanvas(event.target, 'canvas', 'test.jpg')
-    $('#canvas').hide()
+    filename = document.location.pathname.slice(1) + '.jpg'
+    console.log "Filename is: " + filename
+    downloadCanvas(event.target, 'canvas', filename)
 
   "click #fbButton": (event, ui) ->
     newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
@@ -75,18 +75,6 @@ Template.home.events
       method: "share"
       href: newURL
     , (response) ->
-
-  # "click #fbButton": (event, ui) ->
-  #   FB.ui
-  #     method: "share_open_graph"
-  #     action_type: "iconwriter:send"
-  #     action_properties: JSON.stringify(
-  #       type: "iconwriter:icon_message"
-  #       url: "http://iconwriter.wtf/test.html"
-  #       title: "This is the title!!"
-  #       description: "This is the description!!"
-  #       image: 'http://iconwriter.wtf/!?.jpg'
-  #     )
 
   "click .legend": (event, ui) ->
     fbStuff()
@@ -543,6 +531,8 @@ Handlebars.registerHelper 'title', (appName) ->
     # our canvas element
 
     context.scale ratio, ratio
+    context.translate(1280,0) # Sideways
+    context.rotate 0.5 * Math.PI # Sideways
 
   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
   drawIcons(context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh)
@@ -580,8 +570,10 @@ Handlebars.registerHelper 'title', (appName) ->
   inMemCanvas.height = canvasRef.height
   inMemCtx.scale .5, .5
   inMemCtx.drawImage canvasRef, 0, 0
-  canvasRef.width = 598
-  canvasRef.height = 1280
+  # canvasRef.width = 598
+  # canvasRef.height = 1280
+  canvasRef.width = 1280
+  canvasRef.height = 598
   ctx.drawImage inMemCanvas, 0, 0
 
 @fbStuff = ->
