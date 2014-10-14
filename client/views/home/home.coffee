@@ -60,17 +60,19 @@ Template.home.events
     generateTable($('.writing-box').val())
 
   "click #download": (event, ui) ->
-    opts = {}
-    opts.canvas = $("#canvas")[0]
-    opts.image = $(".iphone")[0]
-    drawImage opts
-    canvasResizer()
+    opts = generateOpts("#canvas", ".iphone")
+    drawImage opts, false
+    canvasResizer false
     filename = document.location.pathname.slice(1) + '.jpg'
-    console.log "Filename is: " + filename
     downloadCanvas(event.target, 'canvas', filename)
 
   "click #fbButton": (event, ui) ->
     newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
+    opts = generateOpts("#canvas", ".iphone")
+    drawImage opts, true
+    canvasResizer true
+    filename = document.location.pathname.slice(1) + '.jpg'
+    saveCanvas(event.target, 'canvas', filename)
     FB.ui
       method: "share"
       href: newURL
@@ -168,10 +170,19 @@ Template.home.helpers
     backgroundColor: 'black',
     1500
 
+@generateOpts = (canvasID, imageClass) ->
+  opts = {}
+  opts.canvas = $(canvasID)[0]
+  opts.image = $(imageClass)[0]
+  opts
+
 @downloadCanvas = (link, canvasId, filename) ->
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
-  Meteor.call 'saveDataURL', filename, link.href
   link.download = filename
+
+@saveCanvas = (link, canvasId, filename) ->
+  link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
+  Meteor.call 'saveDataURL', filename, link.href
 
 @fadeOutLegend = ->
   $('.legend-container').removeClass('fadeIn')
@@ -479,7 +490,7 @@ Handlebars.registerHelper 'title', (appName) ->
       $(this).val $(this).val()
     @scrollTop = 999999
 
-@drawImage = (opts) ->
+@drawImage = (opts, isPreview) ->
   throw ("A canvas is required")  unless opts.canvas
   throw ("Image is required")  unless opts.image
 
@@ -529,7 +540,8 @@ Handlebars.registerHelper 'title', (appName) ->
     # our canvas element
 
     context.scale ratio, ratio
-    context.translate(0,-200)
+    if isPreview
+      context.translate 0,-200
     # context.translate(1280,0) # Sideways
     # context.rotate 0.5 * Math.PI # Sideways
 
@@ -558,7 +570,7 @@ Handlebars.registerHelper 'title', (appName) ->
     desy = $(iconText).position().top + 125
     context.fillText($(iconText).text(), desx, desy);
 
-@canvasResizer = ->
+@canvasResizer = (isPreview) ->
   canvasRef = document.getElementById("canvas")
   ctx = canvasRef.getContext("2d")
 
@@ -567,10 +579,15 @@ Handlebars.registerHelper 'title', (appName) ->
 
   inMemCanvas.width = canvasRef.width
   inMemCanvas.height = canvasRef.height
-  # inMemCtx.scale .5, .5
+  unless isPreview
+    inMemCtx.scale .5, .5
   inMemCtx.drawImage canvasRef, 0, 0
-  canvasRef.width = 1200 # 598
-  canvasRef.height = 630 # 1280
+  if isPreview
+    canvasRef.width = 1200 # 598
+    canvasRef.height = 630 # 1280
+  else
+    canvasRef.width = 598
+    canvasRef.height = 1280
   # canvasRef.width = 1280 # Sideways
   # canvasRef.height = 598 # Sideways
   ctx.drawImage inMemCanvas, 0, 0
