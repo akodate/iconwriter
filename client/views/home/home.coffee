@@ -9,15 +9,10 @@ ONETYPE = 'kuz'
 IconWriter.insert({iPhoneDisplay: true})
 Table.insert({})
 
-Template.home.rendered = () ->
+Template.home.rendered = ->
 
   if window.location.pathname[1..-1] == ''
     Router.go('home', {input: 'placeholder'})
-  else
-    text = window.location.pathname[1..-1]
-    $('.writing-box').val(text)
-    generateTable(text)
-    $('.writing-box').putCursorAtEnd()
 
   $('.writing-area').hide()
   setPhoneWidth()
@@ -27,13 +22,9 @@ Template.home.rendered = () ->
 Template.home.events
   "keydown .writing-box, click .submit": (event, ui) ->
     if event.keyCode == 13 || event.keyCode == undefined
-      $('.submit').css
-        backgroundColor: 'white'
-      $('.submit').animate
-        backgroundColor: 'black',
-        1500
       event.preventDefault()
       event.stopPropagation()
+      submitButtonFlash()
       text = $('.writing-box')[0].value.toLowerCase()
       generateTable(text)
       false
@@ -54,19 +45,11 @@ Template.home.events
   "click .legend": (event, ui) ->
     $('.legend-container').show()
     if $('.legend-container').hasClass('fadeIn')
-      $('.legend-container').removeClass('fadeIn')
-      $('.legend-container').addClass('fadeOut')
-      Meteor.setTimeout (() ->
-        $('.legend-container').hide()
-      ), 500
+      fadeOutLegend()
     else
-      $('.legend-container').removeClass('fadeOut')
-      $('.legend-container').addClass('fadeIn')
-
+      fadeInLegend()
     if window.matchMedia("(max-width: 768px)").matches
-      $('#main').animate(
-        scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
-        'slow')
+      scrollToLegend()
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
@@ -81,10 +64,20 @@ Template.home.events
     opts.canvas = $("#canvas")[0]
     opts.image = $(".iphone")[0]
     drawImage opts
-    $('#canvas').show()
+    canvasResizer()
+    filename = document.location.pathname.slice(1) + '.jpg'
+    console.log "Filename is: " + filename
+    downloadCanvas(event.target, 'canvas', filename)
 
-    downloadCanvas(event.target, 'canvas', 'test.jpg')
-    $('#canvas').hide()
+  "click #fbButton": (event, ui) ->
+    newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
+    FB.ui
+      method: "share"
+      href: newURL
+    , (response) ->
+
+  "click .legend": (event, ui) ->
+    fbStuff()
 
 
 
@@ -112,7 +105,7 @@ Template.home.helpers
 
 # Basic helpers
 
-@setPhoneWidth = () ->
+@setPhoneWidth = ->
   width = getWidth()
   if width < 768
     if width < 480
@@ -121,15 +114,10 @@ Template.home.helpers
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
 
 @generateTable = (text) ->
-  if text != window.location.pathname[1..-1]
-    console.log 'itta yo'
-    Router.go('home', {input: text})
+  return unless matchingURL(text)
   rows = []
   text = text.split('')
-  if IconWriterFind('iPhoneDisplay')
-    maxRows = 5
-  else
-    maxRows = 75
+  maxRows = setMaxRows()
   while text.length > 0 && rows.length < maxRows
     rows.push {}
     rows[rows.length - 1]['letters'] = []
@@ -142,10 +130,25 @@ Template.home.helpers
         else
           rows[rows.length - 1]['letters'].push(text[0])
           text = text.slice(1)
-  diversify(rows)
+  diversifyIcons(rows)
   Table.update({}, {rows})
+  $('.icon').css(display: 'none')
+  $('.icon').css(display: 'table')
 
-@diversify = (rows) ->
+@matchingURL = (text) ->
+  if encodeURIComponent(text) != window.location.pathname[1..-1]
+    Router.go('home', {input: text})
+    false
+  else
+    true
+
+@setMaxRows = ->
+  if IconWriterFind('iPhoneDisplay')
+    5
+  else
+    75
+
+@diversifyIcons = (rows) ->
   parse(rows, THREETYPES, 3)
   parse(rows, TWOTYPES, 2)
 
@@ -161,10 +164,33 @@ Template.home.helpers
               rows[index].letters[index2] = newIcon
             counter += 1
 
+@submitButtonFlash = ->
+  $('.submit').css
+    backgroundColor: 'white'
+  $('.submit').animate
+    backgroundColor: 'black',
+    1500
+
 @downloadCanvas = (link, canvasId, filename) ->
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
+  Meteor.call 'saveDataURL', filename, link.href
   link.download = filename
 
+@fadeOutLegend = ->
+  $('.legend-container').removeClass('fadeIn')
+  $('.legend-container').addClass('fadeOut')
+  Meteor.setTimeout (() ->
+    $('.legend-container').hide()
+  ), 500
+
+@fadeInLegend = ->
+  $('.legend-container').removeClass('fadeOut')
+  $('.legend-container').addClass('fadeIn')
+
+@scrollToLegend = ->
+  $('#main').animate(
+    scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
+    'slow')
 
 
 # Other helpers
@@ -278,16 +304,17 @@ isSpecialCase = (text) ->
   else if test(text, 'y_2') then 'y_2'
   else false
 
-test = (text, query) ->
+@test = (text, query) ->
   if text[0..(query.length - 1)] + '' == query.split('') + ''
     query
-  else false
+  else
+    false
 
-specialCase = (text, result, rows) ->
+@specialCase = (text, result, rows) ->
   rows[rows.length - 1]['letters'].push(result)
   text.slice(result.length)
 
-@getWidth = () ->
+@getWidth = ->
   if (window.innerWidth > 0) then window.innerWidth else screen.width
 
 @IconWriterUpdate = (objects) ->
@@ -295,16 +322,6 @@ specialCase = (text, result, rows) ->
 
 @IconWriterFind = (field) ->
   IconWriter.findOne()[field]
-
-Handlebars.registerHelper 'getImage', () ->
-  opts = {}
-  opts.canvas = $("#canvas")[0]
-  opts.image = $(".iphone")[0]
-  drawImage opts
-  $("#canvas").show()
-  finalImage = document.getElementById("canvas").toDataURL("image/jpeg")
-  $("#canvas").hide()
-  return finalImage
 
 Handlebars.registerHelper 'title', (appName) ->
   switch appName
@@ -474,7 +491,6 @@ Handlebars.registerHelper 'title', (appName) ->
   canvas.width = $('#canvas').width() # ?????????
   canvas.height = $('#canvas').height() # ??????????
 
-  console.log canvas
   context = canvas.getContext("2d")
   image = opts.image
 
@@ -515,6 +531,9 @@ Handlebars.registerHelper 'title', (appName) ->
     # our canvas element
 
     context.scale ratio, ratio
+    context.translate(0,-200)
+    # context.translate(1280,0) # Sideways
+    # context.rotate 0.5 * Math.PI # Sideways
 
   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
   drawIcons(context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh)
@@ -529,7 +548,7 @@ Handlebars.registerHelper 'title', (appName) ->
   for icon, index in $('.icon:visible')
     desx = $(icon).position().left * 175/96 * 2 + (30 * 175/96 * 2)
     desy = $(icon).position().top * 175/96 * 2 + (115 * 175/96 * 2)
-    context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh # 124*1*175/96
+    context.drawImage icon, srcx, srcy, srcw, srch, desx, desy, desw, desh
 
 @drawText = (context) ->
   context.scale 175/96*2, 175/96*2
@@ -540,3 +559,38 @@ Handlebars.registerHelper 'title', (appName) ->
     desx = $(iconText).position().left + 30 + 61 / 2
     desy = $(iconText).position().top + 125
     context.fillText($(iconText).text(), desx, desy);
+
+@canvasResizer = ->
+  canvasRef = document.getElementById("canvas")
+  ctx = canvasRef.getContext("2d")
+
+  inMemCanvas = document.createElement("canvas")
+  inMemCtx = inMemCanvas.getContext("2d")
+
+  inMemCanvas.width = canvasRef.width
+  inMemCanvas.height = canvasRef.height
+  # inMemCtx.scale .5, .5
+  inMemCtx.drawImage canvasRef, 0, 0
+  canvasRef.width = 1200 # 598
+  canvasRef.height = 630 # 1280
+  # canvasRef.width = 1280 # Sideways
+  # canvasRef.height = 598 # Sideways
+  ctx.drawImage inMemCanvas, 0, 0
+
+@fbStuff = ->
+  FB.login (->
+    FB.api "/me/feed", "post",
+      message: "Hello, world!"
+      privacy: {value: "SELF"}
+    , (response) ->
+      if not response or response.error
+        console.log response.error
+      else
+        alert "Post ID: " + response.id
+  ),
+    scope: "publish_actions"
+  , (response) ->
+    if response.authResponse
+      console.log "Logged in!"
+    else
+      console.log response

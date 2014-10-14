@@ -1,0 +1,15 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "glob": {}
+    },
+    "packages": {
+      "glob": {
+        "git": "https://github.com/sylvaingi/meteor-glob.git",
+        "tag": "v0.1.2",
+        "commit": "a6a8142d9230aa5f85b1ebd575aa3dc7f91c5906"
+      }
+    }
+  }
+}
