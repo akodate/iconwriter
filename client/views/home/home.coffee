@@ -531,8 +531,9 @@ Handlebars.registerHelper 'title', (appName) ->
     # our canvas element
 
     context.scale ratio, ratio
-    context.translate(1280,0) # Sideways
-    context.rotate 0.5 * Math.PI # Sideways
+    context.translate(0,-200)
+    # context.translate(1280,0) # Sideways
+    # context.rotate 0.5 * Math.PI # Sideways
 
   context.drawImage image, srcx, srcy, srcw, srch, desx, desy, desw, desh
   drawIcons(context, image, srcx, srcy, srcw, srch, desx, desy, desw, desh)
@@ -568,12 +569,12 @@ Handlebars.registerHelper 'title', (appName) ->
 
   inMemCanvas.width = canvasRef.width
   inMemCanvas.height = canvasRef.height
-  inMemCtx.scale .5, .5
+  # inMemCtx.scale .5, .5
   inMemCtx.drawImage canvasRef, 0, 0
-  # canvasRef.width = 598
-  # canvasRef.height = 1280
-  canvasRef.width = 1280
-  canvasRef.height = 598
+  canvasRef.width = 1200 # 598
+  canvasRef.height = 630 # 1280
+  # canvasRef.width = 1280 # Sideways
+  # canvasRef.height = 598 # Sideways
   ctx.drawImage inMemCanvas, 0, 0
 
 @fbStuff = ->
