@@ -39,8 +39,8 @@ Router.map( ->
       # $("meta[property='og:image']").attr("content", "http://iconwriter.wtf/" + @params.extension + ".png")
       $("meta[property='og:image']").attr("content", document.location.origin + '/img/' + @params.extension + '.jpg')
       $("meta[property='og:type']").attr("content", "iconwriter:icon_message" )
-      $("meta[property='og:title']").attr("content", "Dynamic title")
-      $("meta[property='og:description']").attr("content", "Dynamic description")
+      $("meta[property='og:title']").attr("content", "Check out this message made entirely from app icons!")
+      $("meta[property='og:description']").attr("content", "Do you have something you'd like to write too?")
       $("meta[property='og:site_name']").attr("content", "IconWriter")
       $("meta[property='og:url']").attr("content", document.location.href)
     onAfterAction: ->

@@ -76,9 +76,6 @@ Template.home.events
       href: newURL
     , (response) ->
 
-  "click .legend": (event, ui) ->
-    fbStuff()
-
 
 
 Template.home.helpers
@@ -378,6 +375,7 @@ Handlebars.registerHelper 'title', (appName) ->
     when 'ok' then 'Keep it Local'
     when 'heart' then 'We Heart Pics'
     when 'dd' then "Dunkin' Donuts"
+    when 'yolo' then 'Yolo'
     when 'whatsapp' then 'WhatsApp'
     when 'tweet' then 'Twitter'
     when '2048' then '2048'
@@ -577,20 +575,20 @@ Handlebars.registerHelper 'title', (appName) ->
   # canvasRef.height = 598 # Sideways
   ctx.drawImage inMemCanvas, 0, 0
 
-@fbStuff = ->
-  FB.login (->
-    FB.api "/me/feed", "post",
-      message: "Hello, world!"
-      privacy: {value: "SELF"}
-    , (response) ->
-      if not response or response.error
-        console.log response.error
-      else
-        alert "Post ID: " + response.id
-  ),
-    scope: "publish_actions"
-  , (response) ->
-    if response.authResponse
-      console.log "Logged in!"
-    else
-      console.log response
+# @fbStuff = ->
+#   FB.login (->
+#     FB.api "/me/feed", "post",
+#       message: "Hello, world!"
+#       privacy: {value: "SELF"}
+#     , (response) ->
+#       if not response or response.error
+#         console.log response.error
+#       else
+#         alert "Post ID: " + response.id
+#   ),
+#     scope: "publish_actions"
+#   , (response) ->
+#     if response.authResponse
+#       console.log "Logged in!"
+#     else
+#       console.log response
