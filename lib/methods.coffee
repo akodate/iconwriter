@@ -17,7 +17,13 @@ Meteor.methods
       fileTree = new Glob('*', {debug: false, cwd: BASE}, (err, matches) -> )
       console.log fileTree
 
-      __PUBLIC_FOLDER__ = fs.realpathSync(process.env.APP_DIR + '/programs/web.browser/app')
+      try
+        newDir = fs.mkdirSync(process.env.CLOUD_DIR + '/iconwriter/savedimg')
+        console.log "newDir is: " + newDir
+      catch e
+        console.log e
+
+      __PUBLIC_FOLDER__ = fs.realpathSync(process.env.CLOUD_DIR + '/iconwriter/savedimg')
       console.log '__PUBLIC_FOLDER__ is: ' + __PUBLIC_FOLDER__
       fileTree = new Glob('*', {debug: false, cwd: __PUBLIC_FOLDER__}, (err, matches) -> )
       console.log fileTree
@@ -37,7 +43,7 @@ Meteor.methods
         throw err if err
         console.log "Saved successfully."
 
-      __PUBLIC_FOLDER__ = fs.realpathSync(process.env.APP_DIR + '/programs/web.browser/app')
+      __PUBLIC_FOLDER__ = fs.realpathSync(process.env.CLOUD_DIR + '/iconwriter/savedimg')
       console.log 'NEW __PUBLIC_FOLDER__ is: ' + __PUBLIC_FOLDER__
       fileTree = new Glob('*', {debug: false, cwd: __PUBLIC_FOLDER__}, (err, matches) -> )
       console.log fileTree

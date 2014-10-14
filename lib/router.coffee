@@ -11,20 +11,29 @@ Router.map( ->
     path: "/img/:path(*)"
     where: "server"
     action: ->
+      console.log "Time: " + new Date()
+      console.log "------------------------------------------------"
+      console.log "Request headers: "
+      console.log @request.headers
+      console.log "------------------------------------------------"
       console.log "cwd: " + process.cwd()
       fs = Npm.require("fs")
       path = '/' + @params.path
-      basedir = fs.realpathSync(process.env.APP_DIR + '/programs/web.browser/app')
-      # basedir = process.env.APP_DIR + '/programs/web.browser/app/'
-      console.log "will serve static content @ (base): " + basedir
-      console.log "will serve static content @ (path): " + path
-      file = fs.readFileSync(basedir + path)
+      if process.env.ROOT_URL != 'http://localhost:3000/'
+        basedir = fs.realpathSync(process.env.CLOUD_DIR + '/iconwriter/savedimg')
+      else
+        basedir = fs.realpathSync(process.env.PWD + '/public')
+      console.log "Will serve static content at: " + basedir + path
+      try
+        file = fs.readFileSync(basedir + path)
+      catch e
+        throw e
       headers =
         "Content-type": "image/jpg"
         "Content-Disposition": "attachment; filename=" + path.slice(1)
 
       @response.writeHead 200, headers
-      console.log @response
+      console.log 'Image route accessed'
       return @response.end file
   })
 
