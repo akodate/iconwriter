@@ -11,8 +11,11 @@ Table.insert({})
 
 Template.home.rendered = ->
 
-  if window.location.pathname[1..-1] == ''
+  path = window.location.pathname[1..-1]
+  if path == ''
     Router.go('home', {input: 'iconwriter'})
+  else
+    $('#input').val(path)
 
   $('.writing-area').hide()
   setPhoneWidth()
@@ -118,6 +121,7 @@ Template.home.helpers
 
 @generateTable = (text) ->
   return unless matchingURL(text)
+  $('#input').val()
   hideIcons()
   rows = []
   Table.update({}, {rows})

@@ -36,16 +36,16 @@ Router.map( ->
       console.log 'Image route accessed'
       return @response.end file
   })
-
-  @route('home', {
+  @route('homepage', {
     path: '/',
+    render: 'home',
     onAfterAction: ->
+      generateTable('iconwriter')
       GAnalytics.pageview()
   })
-  @route('home', {
+  @route('url', {
     path: '/-:extension',
     waitOn: ->
-      # $("meta[property='og:image']").attr("content", "http://iconwriter.wtf/" + @params.extension + ".png")
       $("meta[property='og:image']").attr("content", document.location.origin + '/img/' + @params.extension + '.jpg')
       $("meta[property='og:type']").attr("content", "iconwriter:icon_message" )
       $("meta[property='og:title']").attr("content", "Check out this message made entirely from app icons!")
@@ -53,15 +53,7 @@ Router.map( ->
       $("meta[property='og:site_name']").attr("content", "IconWriter")
       $("meta[property='og:url']").attr("content", document.location.href)
     onAfterAction: ->
-      # Meteor.call 'serverMethod'
       generateTable(@params.extension)
-      GAnalytics.pageview()
-  })
-  @route('home', {
-    path: '/:input',
-    onAfterAction: ->
-      # Meteor.call 'serverMethod'
-      generateTable(@params.input)
       GAnalytics.pageview()
   })
   @route('about', {
@@ -69,8 +61,14 @@ Router.map( ->
     onAfterAction: ->
       GAnalytics.pageview()
   })
+  @route('home', {
+    path: '/:input',
+    onAfterAction: ->
+      generateTable(@params.input)
+      GAnalytics.pageview()
+  })
 )
 
 
 
-# Router.onBeforeAction('loading')
+Router.onBeforeAction('loading')
