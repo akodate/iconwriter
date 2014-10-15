@@ -97,7 +97,7 @@ td {
   padding: 0em .5em 1em;
 }
 
-.legend-col:nth-child(2), .legend-col:nth-child(3) {
+.legend-col:nth-child(3), .legend-col:nth-child(4) {
   border-left: 1px solid gray;
 }
 
@@ -107,13 +107,18 @@ td {
   color: white;
 }
 
-.legend-text {
+.legend-text, .tip-text {
   display: block;
   margin: 0em;
   padding: 0em;
   font-size: 1.1em;
   line-height: 1.2em;
   color: rgba(180,180,180,1);
+}
+
+.tip-text {
+  text-align: left;
+  line-height: 1.5em;
 }
 
 .right {
@@ -171,6 +176,12 @@ td {
 
 #legend2 {
   display: none;
+}
+
+@media only screen and (max-width : 992px) {
+  .legend-col:nth-child(3), .legend-col:nth-child(4) {
+    border-left: 0px solid gray;
+  }
 }
 
 @media only screen and (max-width : 768px) {

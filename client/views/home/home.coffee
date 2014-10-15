@@ -43,8 +43,8 @@ Template.home.events
   #     generateTable(text)
 
   "click .legend": (event, ui) ->
-    $('.legend-container').show()
-    if $('.legend-container').hasClass('fadeIn')
+    $($('.legend-container')[3]).show()
+    if $($('.legend-container')[3]).hasClass('fadeIn')
       fadeOutLegend()
     else
       fadeInLegend()
@@ -67,6 +67,7 @@ Template.home.events
     downloadCanvas(event.target, 'canvas', filename)
 
   "click .fbButton": (event, ui) ->
+    shareButtonFlash()
     newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
     opts = generateOpts("#canvas", ".iphone")
     drawImage opts, true
@@ -193,6 +194,13 @@ Template.home.helpers
     backgroundColor: 'black',
     1500
 
+@shareButtonFlash = ->
+  $('.fbButton').css
+    backgroundColor: 'white'
+  $('.fbButton').animate
+    backgroundColor: 'black',
+    1500
+
 @generateOpts = (canvasID, imageClass) ->
   opts = {}
   opts.canvas = $(canvasID)[0]
@@ -208,19 +216,19 @@ Template.home.helpers
   Meteor.call 'saveDataURL', filename, link.href
 
 @fadeOutLegend = ->
-  $('.legend-container').removeClass('fadeIn')
-  $('.legend-container').addClass('fadeOut')
+  $($('.legend-container')[3]).removeClass('fadeIn')
+  $($('.legend-container')[3]).addClass('fadeOut')
   Meteor.setTimeout (() ->
-    $('.legend-container').hide()
+    $($('.legend-container')[3]).hide()
   ), 500
 
 @fadeInLegend = ->
-  $('.legend-container').removeClass('fadeOut')
-  $('.legend-container').addClass('fadeIn')
+  $($('.legend-container')[3]).removeClass('fadeOut')
+  $($('.legend-container')[3]).addClass('fadeIn')
 
 @scrollToLegend = ->
   $('#main').animate(
-    scrollTop: $(".legend-heading:nth(3)").offset().top - 80,
+    scrollTop: $("#legend2 > div.writing-container.legend-container.animated.fadeIn > div:nth-child(1) > h2").offset().top - 80,
     'slow')
 
 

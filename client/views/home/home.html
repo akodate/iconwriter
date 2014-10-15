@@ -7,9 +7,15 @@
         <button type="button" class="btn options btn-lg submit">Iconify!</button>
         <button type="button" class="btn options btn-lg fbButton">Share!</button>
       </div>
-      <button type="button" class="btn options legend">Special Words</button>
+      <div class="empty col-sm-1"></div>
+      <div class ="col-xs-6 col-sm-5">
+        <button type="button" class="btn options legend">Icon Menu</button>
+      </div>
       <!-- <button type="button" class="btn options essay">Switch Canvas</button> -->
-      <a id="download" class="btn options">Download</a>
+      <div class ="col-xs-6 col-sm-5">
+        <a id="download" class="btn options">Download</a>
+      </div>
+      <div class="empty col-sm-1"></div>
     </div>
     <div id="legend1">
       {{> legendContent}}
@@ -54,8 +60,21 @@
 </template>
 
 <template name="legendContent">
+  <div class="writing-container legend-container">
+    <div class="col-xs-12">
+      <h2 class="legend-heading">IconWriter</h2>
+      <p class="tip-text">Type something and Iconify it! Certain words make different icons. Click <a href='#' class='legend' style='color: white'>'Icon Menu'</a> for a list of special combinations.</p>
+      <br>
+    </div>
+  </div>
   <div class="writing-container legend-container animated fadeOut" style="display: none">
-    <div class="col-md-4 legend-col">
+    <div class="col-xs-12">
+      <h2 class="legend-heading">Tips</h2>
+      <p class="tip-text">Some letters have up to 2 alternates, like 'b_2' or 'g_3'.</p>
+      <p class="tip-text">Click any of the words below to add it instantly.</p>
+      <br>
+    </div>
+    <div class="col-xs-12 col-md-4 legend-col">
       <h2 class="legend-heading">Popular Apps</h2>
       <button type="button" class="btn options legend-text">netflix</button>
       <button type="button" class="btn options legend-text">whatsapp</button>
@@ -73,7 +92,7 @@
       <button type="button" class="btn options legend-text">angrybirds</button>
       <button type="button" class="btn options legend-text">2048</button>
     </div>
-    <div class="col-md-4 legend-col">
+    <div class="col-xs-12 col-md-4 legend-col">
       <h2 class="legend-heading">Letter Combos</h2>
       <button type="button" class="btn options legend-text">in</button>
       <button type="button" class="btn options legend-text">yolo</button>
@@ -99,7 +118,7 @@
       <button type="button" class="btn options legend-text">dragon</button>
       <button type="button" class="btn options legend-text">yelp</button>
     </div>
-    <div class="col-md-4 legend-col">
+    <div class="col-xs-12 col-md-4 legend-col">
       <h2 class="legend-heading">Emoticon Icons</h2>
       <button type="button" class="btn options legend-text">vision</button>
       <button type="button" class="btn options legend-text">heart</button>
