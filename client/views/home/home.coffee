@@ -15,7 +15,7 @@ Template.home.rendered = ->
   if path == ''
     Router.go('home', {input: 'iconwriter'})
   else
-    $('#input').val(path)
+    $('#input').val(decodeURIComponent(path))
 
   $('.writing-area').hide()
   setPhoneWidth()
@@ -121,7 +121,7 @@ Template.home.helpers
 
 @generateTable = (text) ->
   return unless matchingURL(text)
-  $('#input').val()
+  text = decodeURIComponent(text)
   hideIcons()
   rows = []
   Table.update({}, {rows})

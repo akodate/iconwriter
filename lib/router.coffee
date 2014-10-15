@@ -71,4 +71,4 @@ Router.map( ->
 
 
 
-Router.onBeforeAction('loading')
+# Router.onBeforeAction('loading')
