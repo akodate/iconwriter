@@ -38,9 +38,6 @@ td {
   font-size: 1.5em;
 }
 
-.empty {
-}
-
 .left {
   text-align: center;
 }
@@ -85,18 +82,14 @@ td {
   color: white;
 }
 
-.submit {
-  margin: .5em 0em 0em;
-  padding: .2em 3em;
+.submit, .fbButton {
+  margin: .5em .3em 0em;
+  padding: .2em 1em;
   font-size: 2em;
   border: 1px solid white;
   border-radius: .5em;
   background-color: rgba(0,0,0,1);
   color: rgba(200,200,200,1);
-}
-
-.legend, .essay, .legend-text {
-
 }
 
 .legend-container {
@@ -207,7 +200,7 @@ td {
   .options {
     padding: 0px;
   }
-  .submit {
+  .submit, .fbButton {
     padding: 8px 60px;
   }
   .writing-area {

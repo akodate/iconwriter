@@ -12,7 +12,7 @@ Table.insert({})
 Template.home.rendered = ->
 
   if window.location.pathname[1..-1] == ''
-    Router.go('home', {input: 'placeholder'})
+    Router.go('home', {input: 'iconwriter'})
 
   $('.writing-area').hide()
   setPhoneWidth()
@@ -35,12 +35,12 @@ Template.home.events
       event.stopPropagation()
       false
 
-  "click .essay": (event, ui) ->
-    iPhoneDisplay = IconWriterFind('iPhoneDisplay')
-    IconWriterUpdate({iPhoneDisplay: !iPhoneDisplay})
-    unless IconWriterFind('iPhoneDisplay')
-      text = $('.writing-box')[0].value.toLowerCase()
-      generateTable(text)
+  # "click .essay": (event, ui) ->
+  #   iPhoneDisplay = IconWriterFind('iPhoneDisplay')
+  #   IconWriterUpdate({iPhoneDisplay: !iPhoneDisplay})
+  #   unless IconWriterFind('iPhoneDisplay')
+  #     text = $('.writing-box')[0].value.toLowerCase()
+  #     generateTable(text)
 
   "click .legend": (event, ui) ->
     $('.legend-container').show()
@@ -66,7 +66,7 @@ Template.home.events
     filename = document.location.pathname.slice(1) + '.jpg'
     downloadCanvas(event.target, 'canvas', filename)
 
-  "click #fbButton": (event, ui) ->
+  "click .fbButton": (event, ui) ->
     newURL = document.location.origin + '/-' + document.location.pathname.slice(1)
     opts = generateOpts("#canvas", ".iphone")
     drawImage opts, true
@@ -114,7 +114,9 @@ Template.home.helpers
 
 @generateTable = (text) ->
   return unless matchingURL(text)
+  hideIcons()
   rows = []
+  Table.update({}, {rows})
   text = text.split('')
   maxRows = setMaxRows()
   while text.length > 0 && rows.length < maxRows
@@ -131,8 +133,7 @@ Template.home.helpers
           text = text.slice(1)
   diversifyIcons(rows)
   Table.update({}, {rows})
-  $('.icon').css(display: 'none')
-  $('.icon').css(display: 'table')
+  refreshIcons()
 
 @matchingURL = (text) ->
   if encodeURIComponent(text) != window.location.pathname[1..-1]
@@ -162,6 +163,28 @@ Template.home.helpers
               newIcon = icon + '_' + (counter % typeCount + 1)
               rows[index].letters[index2] = newIcon
             counter += 1
+
+@refreshIcons = ->
+  Meteor.setTimeout ( ->
+    hideIcons()
+    showIcons()
+  ), 10
+
+@hideIcons = ->
+  $('.icon').hide()
+  $('.icon-text').hide()
+  $('.icon').addClass('hidden')
+  $('.icon-text').addClass('hidden-text')
+
+@showIcons = ->
+  Meteor.setTimeout ( ->
+    if $('.hidden')[0] || $('.hidden-text')[0]
+      $($('.hidden')[0]).show()
+      $($('.hidden-text')[0]).show()
+      $($('.hidden')[0]).removeClass('hidden')
+      $($('.hidden-text')[0]).removeClass('hidden-text')
+      showIcons()
+  ), 30
 
 @submitButtonFlash = ->
   $('.submit').css
