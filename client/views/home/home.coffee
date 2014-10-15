@@ -43,13 +43,16 @@ Template.home.events
   #     generateTable(text)
 
   "click .legend": (event, ui) ->
-    $($('.legend-container')[3]).show()
-    if $($('.legend-container')[3]).hasClass('fadeIn')
-      fadeOutLegend()
-    else
-      fadeInLegend()
     if window.matchMedia("(max-width: 768px)").matches
-      scrollToLegend()
+      target = $($('.target')[1])
+    else
+      target = $($('.target')[0])
+    target.show()
+    if target.hasClass('fadeIn')
+      fadeOutLegend(target)
+    else
+      fadeInLegend(target)
+      scrollToLegend() if window.matchMedia("(max-width: 768px)").matches
 
   "focus .btn": (event, ui) ->
     $('.btn').blur()
@@ -215,20 +218,20 @@ Template.home.helpers
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
   Meteor.call 'saveDataURL', filename, link.href
 
-@fadeOutLegend = ->
-  $($('.legend-container')[3]).removeClass('fadeIn')
-  $($('.legend-container')[3]).addClass('fadeOut')
+@fadeOutLegend = (target) ->
+  target.removeClass('fadeIn')
+  target.addClass('fadeOut')
   Meteor.setTimeout (() ->
-    $($('.legend-container')[3]).hide()
+    target.hide()
   ), 500
 
-@fadeInLegend = ->
-  $($('.legend-container')[3]).removeClass('fadeOut')
-  $($('.legend-container')[3]).addClass('fadeIn')
+@fadeInLegend = (target) ->
+  target.removeClass('fadeOut')
+  target.addClass('fadeIn')
 
 @scrollToLegend = ->
   $('#main').animate(
-    scrollTop: $("#legend2 > div.writing-container.legend-container.animated.fadeIn > div:nth-child(1) > h2").offset().top - 80,
+    scrollTop: $('#legend2 > div.writing-container.target > div:nth-child(1) > h2').offset().top - 80,
     'slow')
 
 
