@@ -50,8 +50,13 @@ Router.map( ->
       $("meta[property='og:type']").attr("content", "iconwriter:icon_message" )
       $("meta[property='og:title']").attr("content", "Check out this message made entirely from app icons!")
       $("meta[property='og:description']").attr("content", "Do you have something you'd like to write too?")
-      $("meta[property='og:site_name']").attr("content", "IconWriter")
       $("meta[property='og:url']").attr("content", document.location.href)
+
+      $("meta[name='twitter:card']").attr("content", "summary_large_image")
+      $("meta[name='twitter:title']").attr("content", "Check out this message made entirely form app icons!")
+      $("meta[name='twitter:description']").attr("content", "Do you have something you'd like to write too?")
+      $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + @params.extension + '.jpg')
+
     onAfterAction: ->
       generateTable(@params.extension)
       GAnalytics.pageview()

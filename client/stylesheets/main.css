@@ -55,6 +55,18 @@ td {
   text-align: center;
 }
 
+.likes {
+  margin-top: 8px;
+}
+
+.fb-like {
+
+}
+
+.twitter-share-button {
+  line-height: 30px
+}
+
 .heading {
   text-align: center;
   color: white;
