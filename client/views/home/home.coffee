@@ -121,6 +121,9 @@ Template.home.helpers
 
 @generateTable = (text) ->
   return unless matchingURL(text)
+  Meteor.setTimeout (->
+    updateTwitterValues('http://iconwriter.wtf' + document.location.pathname, "Check out this message made out of app icons!")
+  ), 1000
   text = decodeURIComponent(text)
   hideIcons()
   rows = []
@@ -142,6 +145,11 @@ Template.home.helpers
   diversifyIcons(rows)
   Table.update({}, {rows})
   refreshIcons()
+
+@updateTwitterValues = (share_url, title) ->
+  $('.twitter-section').html "&nbsp;"
+  $('.twitter-section').html "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"" + share_url + "\" data-text=\"" + title + "\" data-counturl=\"http://iconwriter.wtf\">Tweet</a>"
+  twttr.widgets.load()
 
 @matchingURL = (text) ->
   if encodeURIComponent(text) != window.location.pathname[1..-1]

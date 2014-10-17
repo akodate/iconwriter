@@ -13,7 +13,7 @@ Router.map( ->
     action: ->
       console.log "Time: " + new Date()
       console.log "------------------------------------------------"
-      console.log "Request headers: "
+      console.log "Request headers for img/:path(*): "
       console.log @request.headers
       console.log "------------------------------------------------"
       console.log "cwd: " + process.cwd()
@@ -46,16 +46,14 @@ Router.map( ->
   @route('url', {
     path: '/-:extension',
     waitOn: ->
+
+      console.log "Extension accessed."
+
       $("meta[property='og:image']").attr("content", document.location.origin + '/img/' + @params.extension + '.jpg')
       $("meta[property='og:type']").attr("content", "iconwriter:icon_message" )
-      $("meta[property='og:title']").attr("content", "Check out this message made entirely from app icons!")
+      $("meta[property='og:title']").attr("content", "Check out this message made out of app icons!")
       $("meta[property='og:description']").attr("content", "Do you have something you'd like to write too?")
       $("meta[property='og:url']").attr("content", document.location.href)
-
-      $("meta[name='twitter:card']").attr("content", "summary_large_image")
-      $("meta[name='twitter:title']").attr("content", "Check out this message made entirely form app icons!")
-      $("meta[name='twitter:description']").attr("content", "Do you have something you'd like to write too?")
-      $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + @params.extension + '.jpg')
 
     onAfterAction: ->
       generateTable(@params.extension)
@@ -68,6 +66,11 @@ Router.map( ->
   })
   @route('home', {
     path: '/:input',
+    waitOn: ->
+      $("meta[name='twitter:card']").attr("content", "summary_large_image")
+      $("meta[name='twitter:title']").attr("content", "Check out this message made out of app icons!")
+      $("meta[name='twitter:description']").attr("content", "Do you have something you'd like to write too?")
+      $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + @params.input + '.jpg')
     onAfterAction: ->
       generateTable(@params.input)
       GAnalytics.pageview()
