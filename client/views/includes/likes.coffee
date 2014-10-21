@@ -9,7 +9,7 @@ Template.likes.rendered = ->
       saveCanvas(event.target, 'canvas', filename)
 
       $("meta[name='twitter:card']").attr("content", "summary_large_image")
-      $("meta[name='twitter:title']").attr("content", "Check out this message made out of app icons!")
-      $("meta[name='twitter:description']").attr("content", "Do you have something you'd like to write too?")
+      $("meta[name='twitter:title']").attr("content", "What does your name look like spelled with app icons?")
+      $("meta[name='twitter:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? There are over 100 icons to choose from!")
       $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + filename + '.jpg')
   ), 2000

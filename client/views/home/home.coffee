@@ -1,4 +1,4 @@
-LEGALCHARS = new RegExp(/[a-z0-9\s\_.?!+$]/)
+ILLEGALCHARS = new RegExp(/[^a-z0-9\s\_.?!+$]/g)
 THREETYPES = 'abgilmnoprst'
 TWOTYPES = 'cdefhjqvwxy'
 ONETYPE = 'kuz'
@@ -120,6 +120,7 @@ Template.home.helpers
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
 
 @generateTable = (text) ->
+  text = text.replace(ILLEGALCHARS, '')
   return unless matchingURL(text)
   Meteor.setTimeout (->
     updateTwitterValues('http://iconwriter.wtf' + document.location.pathname, "Check out this message made out of app icons!")
@@ -134,8 +135,6 @@ Template.home.helpers
     rows.push {}
     rows[rows.length - 1]['letters'] = []
     for [0..3]
-      while text[0] && !text[0].match(LEGALCHARS)
-        text = text.slice(1)
       if text.length > 0
         if result = isSpecialCase(text)
           text = specialCase(text, result, rows)
@@ -146,17 +145,17 @@ Template.home.helpers
   Table.update({}, {rows})
   refreshIcons()
 
-@updateTwitterValues = (share_url, title) ->
-  $('.twitter-section').html "&nbsp;"
-  $('.twitter-section').html "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"" + share_url + "\" data-text=\"" + title + "\" data-counturl=\"http://iconwriter.wtf\">Tweet</a>"
-  twttr.widgets.load()
-
 @matchingURL = (text) ->
   if encodeURIComponent(text) != window.location.pathname[1..-1]
     Router.go('home', {input: text})
     false
   else
     true
+
+@updateTwitterValues = (share_url, title) ->
+  $('.twitter-section').html "&nbsp;"
+  $('.twitter-section').html "<a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"" + share_url + "\" data-text=\"" + title + "\" data-counturl=\"http://iconwriter.wtf\">Tweet</a>"
+  twttr.widgets.load()
 
 @setMaxRows = ->
   if IconWriterFind('iPhoneDisplay')
@@ -213,7 +212,7 @@ Template.home.helpers
   $('.fbButton').css
     backgroundColor: 'white'
   $('.fbButton').animate
-    backgroundColor: 'black',
+    backgroundColor: '#3b5998',
     1500
 
 @generateOpts = (canvasID, imageClass) ->
@@ -223,6 +222,7 @@ Template.home.helpers
   opts
 
 @downloadCanvas = (link, canvasId, filename) ->
+  filename = decodeURIComponent(filename)
   link.href = document.getElementById(canvasId).toDataURL('image/jpeg')
   link.download = filename
 

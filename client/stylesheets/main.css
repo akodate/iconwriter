@@ -55,18 +55,6 @@ td {
   text-align: center;
 }
 
-.likes {
-  margin-top: 8px;
-}
-
-.fb-like {
-
-}
-
-.twitter-share-button {
-  line-height: 30px
-}
-
 .heading {
   text-align: center;
   color: white;
@@ -101,7 +89,26 @@ td {
   border: 1px solid white;
   border-radius: .5em;
   background-color: rgba(0,0,0,1);
-  color: rgba(200,200,200,1);
+  color: #f7f7f7;
+  /*color: rgba(200,200,200,1);*/
+}
+
+.fbButton {
+  background-color: #3b5998;
+}
+
+.likes {
+  border-top: 1px solid gray;
+  margin-top: 6px;
+  padding-top: 12px;
+}
+
+.fb-like {
+
+}
+
+.twitter-share-button {
+  line-height: 30px
 }
 
 .target {

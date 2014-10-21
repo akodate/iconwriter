@@ -4,6 +4,8 @@ Meteor.methods
 
     if Meteor.isServer && process.env.ROOT_URL != 'http://localhost:3000/'
 
+      fileName = decodeURIComponent fileName
+
       console.log "Filename is: " + fileName
       console.log "Data URL extant" if dataUrl
 
