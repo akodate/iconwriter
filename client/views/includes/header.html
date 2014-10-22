@@ -2,16 +2,29 @@
   <header class="navbar navbar-default header navbar-inverse" role="header">
     <div class="container-fluid">
 
-      <div class="navbar-header">
-        <div class="navbar">
-          <a class="navbar-brand" href="{{pathFor 'homepage'}}">IconWriter</a>
+      <div class="col-xs-12 hidden-sm hidden-md hidden-lg">
+        <div class="navbar-header">
+          <div class="xs-nav navbar">
+            <a class="navbar-brand" href="{{pathFor 'homepage'}}">
+              <span><img id="brand-icon" src="/favicon.ico"></span> IconWriter</a>
+            <ul class="nav navbar-nav pull-right">
+              <li><a class="about-link" href="{{pathFor 'about'}}">About</a></li>
+            </ul>
+          </div>
         </div>
       </div>
+
       <div class="collapse navbar-collapse">
+        <div class="navbar-header">
+          <div class="navbar">
+            <a class="navbar-brand" href="{{pathFor 'homepage'}}">IconWriter</a>
+          </div>
+        </div>
         <ul class="nav navbar-nav navbar-right">
           <li><a class="about-link" href="{{pathFor 'about'}}">About this site</a></li>
         </ul>
       </div>
+
     </div>
   </header>
 </template>

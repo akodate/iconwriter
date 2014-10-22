@@ -11,14 +11,10 @@ Table.insert({})
 
 Template.home.rendered = ->
 
-  path = window.location.pathname[1..-1]
-  if path == ''
-    Router.go('home', {input: 'iconwriter'})
-  else
-    $('#input').val(decodeURIComponent(path))
-
+  setInputWithURI()
   $('.writing-area').hide()
   setPhoneWidth()
+  setWindowResizeListener()
 
 
 
@@ -118,6 +114,13 @@ Template.home.helpers
 
 # Basic helpers
 
+@setInputWithURI = ->
+  path = window.location.pathname[1..-1]
+  if path == ''
+    Router.go('home', {input: 'iconwriter'})
+  else
+    $('#input').val(decodeURIComponent(path))
+
 @setPhoneWidth = ->
   width = getWidth()
   if width < 768
@@ -125,6 +128,11 @@ Template.home.helpers
       width = width - 10
     $('.iphone-container').css('margin-left', (width - 321) / 2 + 'px')
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
+
+@setWindowResizeListener = ->
+  $( window ).resize ->
+    $('#main').css(height: '100%')
+    $('#main').css(height: $('body').height() - $('.navbar-default').height() - 2)
 
 @generateTable = (text) ->
   text = text.replace(ILLEGALCHARS, '')
