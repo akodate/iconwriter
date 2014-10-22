@@ -47,22 +47,11 @@ Router.map( ->
     path: '/-:extension',
     waitOn: ->
 
-      console.log "Extension accessed."
-      console.log "Extension is: " + @params.extension
-
       $("meta[property='og:image']").attr("content", document.location.origin + '/img/' + encodeURIComponent @params.extension + '.jpg')
       $("meta[property='og:type']").attr("content", "iconwriter:icon_message" )
       $("meta[property='og:title']").attr("content", "What does your name look like spelled with app icons?")
-      $("meta[property='og:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? There are over 100 icons to choose from!")
+      $("meta[property='og:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? Or maybe a nice home screen arrangement? There are over 100 icons to choose from!")
       $("meta[property='og:url']").attr("content", document.location.origin + '/-' + encodeURIComponent @params.extension)
-      debugger
-
-    action: ->
-      console.log "Time: " + new Date()
-      console.log "------------------------------------------------"
-      console.log "Request headers for -:extension: "
-      console.log @request.headers
-      console.log "------------------------------------------------"
 
     onAfterAction: ->
       generateTable(@params.extension)
@@ -78,7 +67,7 @@ Router.map( ->
     waitOn: ->
       $("meta[name='twitter:card']").attr("content", "summary_large_image")
       $("meta[name='twitter:title']").attr("content", "What does your name look like spelled with app icons?")
-      $("meta[name='twitter:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? There are over 100 icons to choose from!")
+      $("meta[name='twitter:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? Or maybe a nice home screen arrangement? There are over 100 icons to choose from!")
       $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + @params.input + '.jpg')
     onAfterAction: ->
       generateTable(@params.input)
