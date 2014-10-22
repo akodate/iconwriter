@@ -2,8 +2,15 @@
   <div class='likes col-xs-12'>
     <div class="empty col-sm-2 col-md-3"></div>
     <div class="col-xs-4 col-sm-3">
+      {{#if isIOSChrome}}
+      <div class="fb-like" data-href="http://iconwriter.wtf" data-width="225" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true" data-colorscheme="dark"></div>
+      {{else}}
       <div class="fb-like" data-href="http://iconwriter.wtf/" data-width="225" data-layout="button_count" data-action="like" data-show-faces="false" data-colorscheme="dark"></div>
+      {{/if}}
     </div>
+    {{#if isIOSChrome}}
+    <div class="empty col-xs-2 sm-hidden"></div>
+    {{/if}}
     <div class="col-xs-4 col-sm-3 twitter-section">
       <!-- <a class="twitter-share-button" data-url="https://twitter.com/share">Tweet</a> -->
       <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>

@@ -61,8 +61,12 @@ Template.home.events
     $('.btn').blur()
 
   "click .legend-text": (event, ui) ->
-    text = event.target.outerText
-    $('.writing-box').val($('.writing-box').val() + text)
+    if navigator.userAgent.match('Firefox')
+      text = event.target.textContent
+      $('.writing-box').val($('.writing-box').val() + text)
+    else
+      text = event.target.outerText
+      $('.writing-box').val($('.writing-box').val() + text)
     generateTable($('.writing-box').val())
 
   "click #download": (event, ui) ->
@@ -106,6 +110,9 @@ Template.home.helpers
       'fadeIn'
     else
       'fadeOut'
+
+  isIOSChrome: ->
+    navigator.userAgent.match('CriOS')
 
 
 

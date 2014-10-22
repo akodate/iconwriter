@@ -13,3 +13,8 @@ Template.likes.rendered = ->
       $("meta[name='twitter:description']").attr("content", "Write whatever you want on an iPhone home screen with IconWriter! A 20-icon love letter? An Android fanpost? There are over 100 icons to choose from!")
       $("meta[name='twitter:image:src']").attr("content", document.location.origin + '/img/' + filename + '.jpg')
   ), 2000
+
+Template.likes.helpers
+
+  isIOSChrome: ->
+    navigator.userAgent.match('CriOS')

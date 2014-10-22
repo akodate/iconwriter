@@ -6,7 +6,9 @@
       <textarea id="input" class="writing-box" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus="true" placeholder="Type here!"></textarea>
       <div class ="col-xs-12">
         <button type="button" class="btn options btn-lg submit">Iconify!</button>
+        {{#unless isIOSChrome}}
         <button type="button" class="btn options btn-lg fbButton">Share!</button>
+        {{/unless}}
       </div>
       <div class="empty col-sm-1"></div>
       <div class ="col-xs-6 col-sm-5">
