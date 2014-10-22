@@ -13,7 +13,6 @@ Template.home.rendered = ->
 
   setInputWithURI()
   $('.writing-area').hide()
-  setPhoneWidth()
   setWindowResizeListener()
 
 
@@ -128,11 +127,16 @@ Template.home.helpers
       width = width - 10
     $('.iphone-container').css('margin-left', (width - 321) / 2 + 'px')
     $('.icon-table-container').css('margin-left', (width - 321) / 2 + 'px')
+  else
+    $('.iphone-container').css('margin-left', '')
+    $('.icon-table-container').css('margin-left', '')
+
 
 @setWindowResizeListener = ->
   $( window ).resize ->
     $('#main').css(height: '100%')
     $('#main').css(height: $('body').height() - $('.navbar-default').height() - 2)
+    setPhoneWidth()
 
 @generateTable = (text) ->
   text = text.replace(ILLEGALCHARS, '')
