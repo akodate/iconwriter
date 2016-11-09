@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/server/server.coffee"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,CAAC,GAAR,CAAY,OAAO,CAAC,GAApB;;AAEA,OAAO,CAAC,GAAR,CAAY,2FAAZ","file":"/server/server.coffee.js","sourcesContent":["console.log process.env\n\nconsole.log '*****************************************************************************************'"]}
